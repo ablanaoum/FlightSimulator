@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulator.Views
 {
-    public partial class Joystick :UserControl
+    public partial class Map : UserControl
     {
-        public Joystick()
+        public Map()
         {
             InitializeComponent();
+            myMap.Mode = new AerialMode(true);
         }
     }
 }
