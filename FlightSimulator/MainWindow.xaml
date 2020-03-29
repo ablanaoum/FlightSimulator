@@ -7,7 +7,7 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         xmlns:local="clr-namespace:FlightSimulator"
         mc:Ignorable="d"
-        Title="Flight Simulator" Height="450" Width="800" Background="LightBlue">
+        Title="Flight Simulator" Height="500" Width="1000" Background="LightBlue">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -15,14 +15,11 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
-
+        <c:Control Grid.Column="1" Grid.Row="1" Height="240"/>
         <c:Map Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
-        <Viewbox Grid.Column="1" Grid.Row="1" Width="200" Height="200">
-            <c:Joystick/>
-        </Viewbox>
-        
+        <c:Dashboard Grid.Row="0" Grid.Column="1"/>
     </Grid>
 </Window>
