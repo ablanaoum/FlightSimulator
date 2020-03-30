@@ -8,7 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-
         <m:Map CredentialsProvider="AvrJuNqAr9cnxhxXGqJtotHK5It1yk1MeBP3XDjdTBndZlv6M543aQeKAoxEzja9" 
                x:Name="myMap" Mode="AerialWithLabels" Center="32.006833306,34.885329792" ZoomLevel="16">
             <m:Pushpin x:Name="pin" Location="32.006833306,34.885329792" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">

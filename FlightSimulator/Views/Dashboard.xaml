@@ -7,21 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="240" d:DesignWidth="333.3" Background="LightSkyBlue">
     <Grid>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88" RenderTransformOrigin="0.467,0.754"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,38,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,95,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,122,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,150,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,178,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="238,206,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="88"/>
+
         <Label Content="indicated-heading-deg" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="196" FontFamily="Segoe Print" FontWeight="Bold"/>
-        <Label Content="gps_indicated-vertical-speed" HorizontalAlignment="Left" Margin="0,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="196" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <Label Content="gps_indicated-vertical-speed" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="196" FontFamily="Segoe Print" FontWeight="Bold"/>
         <Label Content="gps_indicated-ground-speed-kt" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="196" FontFamily="Segoe Print" FontWeight="Bold"/>
         <Label Content="airspeed-indicator_indicated-speed-kt" HorizontalAlignment="Left" Margin="0,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="238" FontFamily="Segoe Print" FontWeight="Bold"/>
         <Label Content="gps_indicated-altitude-ft" HorizontalAlignment="Left" Margin="0,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="186" FontFamily="Segoe Print" FontWeight="Bold"/>
         <Label Content="attitude-indicator_internal-roll-deg" HorizontalAlignment="Left" Margin="0,144,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="228" FontFamily="Segoe Print" FontWeight="Bold"/>
         <Label Content="attitude-indicator_internal-pitch-deg" HorizontalAlignment="Left" Margin="0,171,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="238" FontFamily="Segoe Print" FontWeight="Bold"/>
         <Label Content="altimeter_indicated-altitude-ft" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="196" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="23" Width="70"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,38,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="15" Width="70"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,68,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="70"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,97,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="23" Width="70"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,124,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" RenderTransformOrigin="-0.431,0.135" Height="23" Width="70"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,150,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="17" Width="70"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,178,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="22" Width="70"/>
+        <TextBlock HorizontalAlignment="Left" Margin="247,205,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="23" Width="70"/>
     </Grid>
 </UserControl>
