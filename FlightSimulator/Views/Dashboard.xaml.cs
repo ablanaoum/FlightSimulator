@@ -23,6 +23,7 @@ namespace FlightSimulator.Views
         public Dashboard()
         {
             InitializeComponent();
+            
         }
     }
 }

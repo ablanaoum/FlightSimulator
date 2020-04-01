@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
 {
@@ -28,8 +29,8 @@ namespace FlightSimulatorApp
             this.syncLock = new object();
         }
 
-        /*
-         
+        
+         /*
         public static MyAirplaneModel GetInstance()
         {
             if (instance == null)
@@ -37,9 +38,9 @@ namespace FlightSimulatorApp
                 instance = new MyAirplaneModel();
             }
             return instance;
-        }
+        }*/
 
-        */
+        
 
         // Create array of tuples of <simulator's variable name, value>
         private Tuple<string, double>[] createSimVarsArr()
@@ -136,6 +137,7 @@ namespace FlightSimulatorApp
                     Altimeter = simVars[7].Item2;
                     Longitude = simVars[8].Item2;
                     Latitude = simVars[9].Item2;
+                    Location = new Location(Latitude,Longitude);
 
                     // Read the data in 4Hz
                     Thread.Sleep(250);
@@ -322,6 +324,20 @@ namespace FlightSimulatorApp
                     this.latitude = value;
                     this.NotifyPropertyChanged("Latitude");
                 }
+            }
+        }
+
+        private Location location;
+        public Location Location
+        {
+            get
+            {
+                return location;
+            }
+            set
+            {
+                location = value;
+                NotifyPropertyChanged("Location");
             }
         }
 

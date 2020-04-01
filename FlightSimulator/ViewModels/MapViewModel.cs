@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
 {
@@ -22,14 +23,28 @@ namespace FlightSimulatorApp
         }
 
         // Map properties
+        private double longitude;
         public double VM_Longitude
         {
             get { return model.Longitude; }
+            set { longitude = value; }
         }
 
+        private double latitude;
         public double VM_Latitude
         {
             get { return model.Latitude; }
+            set { latitude = value; }
+        }
+
+        private Location location;
+        public Location VM_Location
+        {
+            get
+            {
+                location = model.Location;
+                return location;
+            }
         }
     }
 }

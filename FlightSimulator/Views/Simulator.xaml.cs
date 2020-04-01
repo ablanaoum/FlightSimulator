@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlightSimulatorApp;
 using Microsoft.Maps.MapControl.WPF;
+
 
 namespace FlightSimulator.Views
 {
@@ -21,9 +23,12 @@ namespace FlightSimulator.Views
     /// </summary>
     public partial class Simulator : Window
     {
+    
         public Simulator()
         {
             InitializeComponent();
+            myMap.DataContext = (Application.Current as App).mapVM;
+            dash.DataContext = (Application.Current as App).dashboardVM;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace FlightSimulator
 {
     /// <summary>
@@ -21,27 +22,18 @@ namespace FlightSimulator
     /// </summary>
     public partial class MainWindow : Window
     {
-        IAirplaneModel airplaneModel;
-        private DashboardViewModel dashboardVM;
-        private MapViewModel mapVM;
-        private ControlsViewModel controlsVM;
-        private SettingsViewModel settingsVM;
 
+        
         public MainWindow()
         {
             InitializeComponent();
-            airplaneModel = new MyAirplaneModel();
-            //ViewModel viewModel = new ViewModel(airplaneModel);
-            dashboardVM = new DashboardViewModel(airplaneModel);
-            mapVM = new MapViewModel(airplaneModel);
-            controlsVM = new ControlsViewModel(airplaneModel);
-            settingsVM = new SettingsViewModel(airplaneModel);
-            DataContext = settingsVM;
+            DataContext = (Application.Current as App).settingsVM;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            settingsVM.connect();
+            (Application.Current as App).settingsVM.connect();
             this.Hide();
             Simulator si = new Simulator();
             si.Show();
