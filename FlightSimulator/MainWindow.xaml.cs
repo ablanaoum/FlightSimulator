@@ -1,4 +1,5 @@
 ﻿using FlightSimulator.Views;
+using FlightSimulatorApp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,27 @@ namespace FlightSimulator
     /// </summary>
     public partial class MainWindow : Window
     {
+        IAirplaneModel airplaneModel;
+        private DashboardViewModel dashboardVM;
+        private MapViewModel mapVM;
+        private ControlsViewModel controlsVM;
+        private SettingsViewModel settingsVM;
+
         public MainWindow()
         {
             InitializeComponent();
+            airplaneModel = new MyAirplaneModel();
+            //ViewModel viewModel = new ViewModel(airplaneModel);
+            dashboardVM = new DashboardViewModel(airplaneModel);
+            mapVM = new MapViewModel(airplaneModel);
+            controlsVM = new ControlsViewModel(airplaneModel);
+            settingsVM = new SettingsViewModel(airplaneModel);
+            DataContext = settingsVM;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            settingsVM.connect();
             this.Hide();
             Simulator si = new Simulator();
             si.Show();

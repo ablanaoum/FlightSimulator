@@ -5,16 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulator.Views"
         mc:Ignorable="d"
-        Title="Connection" Height="500" Width="1000">
+        Title="Fight Simulator - Connection" Height="500" Width="1000">
     <Grid>
-        <Image HorizontalAlignment="Left" Name="sky" Height="500" VerticalAlignment="Top" Width="1000" Source="sky.jpg" Stretch="Fill"/>
-        <Label Content="Connection" HorizontalAlignment="Left" Margin="412,100,0,0" VerticalAlignment="Top" Height="67" Width="174" FontFamily="Segoe Print" FontSize="30" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Height="32" Margin="465,204,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="157"/>
-        <TextBox HorizontalAlignment="Left" Height="32" Margin="465,204,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="157" RenderTransformOrigin="0.458,2.469" TextAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Segoe Print"/>
-        <TextBox HorizontalAlignment="Left" Height="32" Margin="465,266,0,0" TextWrapping="Wrap" Text="5402" VerticalAlignment="Top" Width="157" FontSize="16" FontWeight="Bold" TextAlignment="Center" FontFamily="Segoe Print"/>
-        <Label Content="IP" HorizontalAlignment="Left" Margin="386,202,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Segoe Print"/>
-        <Label Content="PORT" HorizontalAlignment="Left" Margin="383,258,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Segoe Print"/>
-        <Button Content="Connect" HorizontalAlignment="Left" Margin="386,354,0,0" VerticalAlignment="Top" Width="236" Height="36" FontFamily="Segoe Print" FontSize="16" FontWeight="Bold" Click="Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="38*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="941*"/>
+        </Grid.ColumnDefinitions>
+        <Image HorizontalAlignment="Left" Name="sky" Height="500" VerticalAlignment="Top" Width="1000" Source="sky.jpg" Stretch="Fill" Grid.ColumnSpan="3" Margin="0,0,-6.666,-29.333"/>
+        <Label Content="Flight Simulator" HorizontalAlignment="Left" Margin="297.333,96,0,0" VerticalAlignment="Top" Height="67" Width="260" FontFamily="Segoe Print" FontSize="30" FontWeight="Bold" Grid.Column="2"/>
+        <TextBox HorizontalAlignment="Left" Height="32" Margin="416,204,0,0" TextWrapping="Wrap" Text="{Binding VM_Ip}" VerticalAlignment="Top" Width="157" RenderTransformOrigin="0.458,2.469" TextAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Segoe Print" Grid.Column="2"/>
+        <TextBox HorizontalAlignment="Left" Height="32" Margin="416,266,0,0" TextWrapping="Wrap" Text="{Binding VM_Port}" VerticalAlignment="Top" Width="157" FontSize="16" FontWeight="Bold" TextAlignment="Center" FontFamily="Segoe Print" Grid.Column="2"/>
+        <Label Content="Server IP" HorizontalAlignment="Left" Margin="257,195,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Segoe Print" Grid.Column="2"/>
+        <Label Content="Server PORT" HorizontalAlignment="Left" Margin="257,258,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Segoe Print" Grid.Column="2"/>
+        <Button Content="Connect" HorizontalAlignment="Left" Margin="336.333,360,0,0" VerticalAlignment="Top" Width="191" Height="36" FontFamily="Segoe Print" FontSize="16" FontWeight="Bold" Click="Button_Click" RenderTransformOrigin="0.5,0.5" Grid.Column="2">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.351"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
 
     </Grid>
 </Window>

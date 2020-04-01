@@ -10,6 +10,7 @@ namespace FlightSimulatorApp
 {
     public class MyAirplaneModel : IAirplaneModel
     {
+        //private static MyAirplaneModel instance;
         private ITelnetClient client;
         private volatile Boolean stop;
         private Tuple<string, double>[] simVars;
@@ -18,7 +19,6 @@ namespace FlightSimulatorApp
         private readonly object syncLock;
 
 
-        // Constructor
         public MyAirplaneModel()
         {
             this.client = new MyTelnetClient();
@@ -27,6 +27,19 @@ namespace FlightSimulatorApp
             this.commands = new Queue<string>();
             this.syncLock = new object();
         }
+
+        /*
+         
+        public static MyAirplaneModel GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new MyAirplaneModel();
+            }
+            return instance;
+        }
+
+        */
 
         // Create array of tuples of <simulator's variable name, value>
         private Tuple<string, double>[] createSimVarsArr()
