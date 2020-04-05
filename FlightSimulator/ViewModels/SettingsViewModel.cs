@@ -23,7 +23,7 @@ namespace FlightSimulatorApp
 
         public void connect()
         {
-            model.connect(this.ip, Int32.Parse(this.port));
+            model.connect();
             model.start();
         }
 
@@ -33,30 +33,16 @@ namespace FlightSimulatorApp
         }
 
         // Properties
-        private string ip;
         public string VM_Ip
         {
-            get { return this.ip; }
-            set
-            {
-                if (this.ip != value)
-                {
-                    this.ip = value;
-                }
-            }
+            get { return model.Ip; }
+            set { model.Ip = value; }
         }
 
-        private string port;
-        public string VM_Port
+        public int VM_Port
         {
-            get { return this.port; }
-            set
-            {
-                if (this.port != value)
-                {
-                    this.port = value;
-                }
-            }
+            get { return model.Port; }
+            set { model.Port = value; }
         }
     }
 }

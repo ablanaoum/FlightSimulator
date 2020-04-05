@@ -41,7 +41,14 @@ namespace FlightSimulatorApp
             }
             catch (Exception)
             {
-                Console.WriteLine("Exception: Unable to send message to server");
+                if (!client.Connected)
+                {
+                    Console.WriteLine("Oops! Connection went wrong, trying to reconnect..");
+                }
+                else
+                {
+                    Console.WriteLine("Exception: Unable to send message to server");
+                }
             }
         }
 
@@ -63,7 +70,14 @@ namespace FlightSimulatorApp
             }
             catch (Exception)
             {
-                Console.WriteLine("Exception: Unable to get response from server");
+                if (!client.Connected)
+                {
+                    Console.WriteLine("Oops! Connection went wrong, trying to reconnect..");
+                }
+                else
+                {
+                    Console.WriteLine("Exception: Unable to get response from server");
+                }
                 return null;
             }
         }

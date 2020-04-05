@@ -6,6 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Microsoft.Maps.MapControl.WPF;
+using System.Diagnostics;
+using System.Windows.Threading;
+using System.Configuration;
 
 namespace FlightSimulatorApp
 {
@@ -14,12 +17,17 @@ namespace FlightSimulatorApp
         //private static MyAirplaneModel instance;
         private ITelnetClient client;
         private volatile Boolean stop;
+        // Array of tuples of <simulator's variable name, value>
         private Tuple<string, double>[] simVars;
-        // 'set' commands to send to the simulator
+        // Queue of 'set' commands to send to the simulator
         private Queue<string> commands;
         private readonly object syncLock;
+        // Stopwatch to measure server response time
+        private Stopwatch stopWatch;
+        // Timer to perform an action repeatedly within a given interval
+        private DispatcherTimer timer;
 
-
+        // Constructor
         public MyAirplaneModel()
         {
             this.client = new MyTelnetClient();
@@ -27,6 +35,14 @@ namespace FlightSimulatorApp
             this.simVars = this.createSimVarsArr();
             this.commands = new Queue<string>();
             this.syncLock = new object();
+            this.stopWatch = new Stopwatch();
+            this.timer = new DispatcherTimer();
+            // Set the timer to perform the function repeatedly within 2 seconds
+            this.timer.Interval = TimeSpan.FromSeconds(2);
+            this.timer.Tick += timerTick;
+            // Default IP and port
+            Ip = ConfigurationManager.AppSettings["ip"];
+            Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
         }
 
         
@@ -63,9 +79,9 @@ namespace FlightSimulatorApp
         }
 
         // Connection to the airplane
-        public void connect(string ip, int port)
+        public void connect()
         {
-            client.connect(ip, port);
+            client.connect(this.ip, this.port);
         }
 
         public void disconnect()
@@ -82,6 +98,7 @@ namespace FlightSimulatorApp
 
         public void start()
         {
+            timer.Start();
             // Thread for getting values from the simulator
             new Thread(delegate ()
             {
@@ -169,8 +186,24 @@ namespace FlightSimulatorApp
         {
             lock (syncLock)
             {
+                string message;
                 client.write(command);
-                return client.read();
+                // Measure the server response time
+                stopWatch.Restart();
+                // Thread.Sleep(10000);  // Test waiting for response from the server for 10 seconds
+                message = client.read();
+                stopWatch.Reset();
+                return message;
+            }
+        }
+
+        // The function notifies the user when the server is busy and responds slowly
+        public void timerTick(object sender, EventArgs e)
+        {
+            // If the server did not respond for at least 8-10 seconds
+            if (stopWatch.ElapsedMilliseconds > 8000)
+            {
+                Console.WriteLine("Notice: Server is busy...");
             }
         }
 
@@ -185,7 +218,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Dashboard properties implementation
+        // Dashboard properties
         private double heading;
         public double Heading
         {
@@ -298,7 +331,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Map properties implementation
+        // Map properties
         private double longitude;
         public double Longitude
         {
@@ -330,20 +363,50 @@ namespace FlightSimulatorApp
         private Location location;
         public Location Location
         {
-            get
-            {
-                return location;
-            }
+            get { return this.location; }
             set
             {
-                location = value;
-                NotifyPropertyChanged("Location");
+                if (this.location != value)
+                {
+                    this.location = value;
+                    this.NotifyPropertyChanged("Location");
+                }
             }
         }
 
+        // Settings properties
+        private string ip;
+        public string Ip
+        {
+            get { return this.ip; }
+            set
+            {
+                if (this.ip != value)
+                {
+                    this.ip = value;
+                    this.NotifyPropertyChanged("Ip");
+                }
+            }
+        }
+
+        private int port;
+        public int Port
+        {
+            get { return this.port; }
+            set
+            {
+                if (this.port != value)
+                {
+                    this.port = value;
+                    this.NotifyPropertyChanged("Port");
+                }
+            }
+        }
+
+
         /*
 
-        // Controls properties implementation
+        // Controls properties
         private double rudder;
         public double Rudder
         {
