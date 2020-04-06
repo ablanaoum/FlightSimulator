@@ -36,15 +36,5 @@ namespace FlightSimulatorApp
         int Port { set; get; }
         string ConnectionErrorMessage { set; get; }
         string ErrorScreen { set; get; }
-
-        /*
-         
-         // Controls properties
-        double Rudder { set; get; }
-        double Elevator { set; get; }
-        double Throttle { set; get; }
-        double Aileron { set; get; }
-
-         */
     }
 }

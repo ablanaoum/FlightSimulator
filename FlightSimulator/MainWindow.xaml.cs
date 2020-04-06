@@ -28,7 +28,6 @@ namespace FlightSimulator
         {
             InitializeComponent();
             DataContext = (Application.Current as App).settingsVM;
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -14,7 +14,6 @@ namespace FlightSimulatorApp
 {
     public class MyAirplaneModel : IAirplaneModel
     {
-        //private static MyAirplaneModel instance;
         private ITelnetClient client;
         private volatile Boolean stop;
         // Array of tuples of <simulator's variable name, value>
@@ -44,19 +43,6 @@ namespace FlightSimulatorApp
             Ip = ConfigurationManager.AppSettings["ip"];
             Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
         }
-
-        
-         /*
-        public static MyAirplaneModel GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new MyAirplaneModel();
-            }
-            return instance;
-        }*/
-
-        
 
         // Create array of tuples of <simulator's variable name, value>
         private Tuple<string, double>[] createSimVarsArr()
@@ -129,37 +115,15 @@ namespace FlightSimulatorApp
                 {
                     while (!stop)
                     {
-                        /*
-                        // Get dashboard values from the simulator
-                        tcpClient.write("get indicated-heading-deg\n");
-                        Heading = Double.Parse(tcpClient.read());
-                        tcpClient.write("get gps_indicated-vertical-speed\n");
-                        GpsVerticalSpeed = Double.Parse(tcpClient.read());
-                        tcpClient.write("get gps_indicated-ground-speed-kt\n");
-                        GpsGroundSpeed = Double.Parse(tcpClient.read());
-                        tcpClient.write("get airspeed-indicator_indicated-speed-kt\n");
-                        AirspeedIndicatorSpeed = Double.Parse(tcpClient.read());
-                        tcpClient.write("get gps_indicated-altitude-ft\n");
-                        GpsAltitude = Double.Parse(tcpClient.read());
-                        tcpClient.write("get attitude-indicator_internal-roll-deg\n");
-                        AttitudeIndicatorInternalRoll = Double.Parse(tcpClient.read());
-                        tcpClient.write("get attitude-indicator_internal-pitch-deg\n");
-                        AttitudeIndicatorInternalPitch = Double.Parse(tcpClient.read());
-                        tcpClient.write("get altimeter_indicated-altitude-ft\n");
-                        AltimeterAltitude = Double.Parse(tcpClient.read());
-                        */
-
                         // Get values from the simulator
                         for (int i = 0; i < 10; i++)
                         {
                             varName = simVars[i].Item1;
                             command = "get " + varName + "\n";
-                            // Send 'get' command to the server
-                            //client.write(command);
+                            // Send 'get' command to the server and receive the returned value
                             receivedMessageFromGet = writeAndRead(command);
                             try
                             {
-                                //simVars[i] = new Tuple<string, double>(varName, Double.Parse(client.read()));
                                 simVars[i] = new Tuple<string, double>(varName, Double.Parse(receivedMessageFromGet));
                             }
                             catch (Exception)
@@ -203,13 +167,10 @@ namespace FlightSimulatorApp
                         if (commands.Count != 0)
                         {
                             receivedMessageFromSet = writeAndRead(commands.Dequeue());
-                            //client.write(commands.Dequeue());
-                            // Do nothing with the returned value
-                            //client.read();
                         }
 
                         // Read the data in 4Hz
-                        Thread.Sleep(50);
+                        Thread.Sleep(1);
                     }
                 }
                 catch (Exception)
@@ -482,67 +443,5 @@ namespace FlightSimulatorApp
                 }
             }
         }
-
-
-        /*
-
-        // Controls properties
-        private double rudder;
-        public double Rudder
-        {
-            get { return this.rudder; }
-            set
-            {
-                if (this.rudder != value)
-                {
-                    this.rudder = value;
-                    this.NotifyPropertyChanged("Rudder");
-                }
-            }
-        }
-
-        private double elevator;
-        public double Elevator
-        {
-            get { return this.elevator; }
-            set
-            {
-                if (this.elevator != value)
-                {
-                    this.elevator = value;
-                    this.NotifyPropertyChanged("Elevator");
-                }
-            }
-        }
-
-        private double throttle;
-        public double Throttle
-        {
-            get { return this.throttle; }
-            set
-            {
-                if (this.throttle != value)
-                {
-                    this.throttle = value;
-                    this.NotifyPropertyChanged("Throttle");
-                }
-            }
-        }
-
-        private double aileron;
-        public double Aileron
-        {
-            get { return this.aileron; }
-            set
-            {
-                if (this.aileron != value)
-                {
-                    this.aileron = value;
-                    this.NotifyPropertyChanged("Aileron");
-                }
-            }
-        }
-
-         */
     }
 }

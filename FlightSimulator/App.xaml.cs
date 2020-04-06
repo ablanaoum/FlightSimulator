@@ -25,7 +25,6 @@ namespace FlightSimulator
 
             airplaneModel = new MyAirplaneModel();
             settingsVM = new SettingsViewModel(airplaneModel);
-            //ViewModel viewModel = new ViewModel(airplaneModel);
             dashboardVM = new DashboardViewModel(airplaneModel);
             mapVM = new MapViewModel(airplaneModel);
             controlsVM = new ControlsViewModel(airplaneModel);
