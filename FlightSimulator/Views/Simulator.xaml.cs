@@ -29,10 +29,12 @@ namespace FlightSimulator.Views
             InitializeComponent();
             myMap.DataContext = (Application.Current as App).mapVM;
             dash.DataContext = (Application.Current as App).dashboardVM;
+            myControl.DataContext = (Application.Current as App).controlsVM;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            (Application.Current as App).settingsVM.disconnect();
             this.Close();
         }
     }
