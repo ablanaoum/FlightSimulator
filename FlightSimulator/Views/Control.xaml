@@ -28,8 +28,8 @@
             </Slider.RenderTransform>
         </Slider>
         <Label Content="Throttle" HorizontalAlignment="Left" Margin="9,146,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" FontFamily="Segoe Print"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="rudder" Height="20" Margin="76.333,3,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Rudder}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="elevator" Height="20" Margin="76.333,30,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Elevator}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White"/>
+        <TextBox HorizontalAlignment="Left" x:Name="rudder" Height="20" Margin="76.333,3,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Rudder}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White" TextChanged="rudder_TextChanged" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <TextBox HorizontalAlignment="Left" x:Name="elevator" Height="20" Margin="76.333,30,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Elevator}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White" TextChanged="elevator_TextChanged" Background="{x:Null}" BorderBrush="{x:Null}"/>
         <Label Content="Elevator" HorizontalAlignment="Left" Margin="23.333,24,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="10" FontFamily="Segoe Print" Foreground="White"/>
         <Label Content="Rudder" HorizontalAlignment="Left" Margin="23.333,-3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.678,0.667" Grid.Column="1" FontSize="10" FontFamily="Segoe Print" Foreground="White"/>
         <TextBlock HorizontalAlignment="Left" Margin="14,28,0,0" TextWrapping="Wrap" Text="{Binding ElementName=throttle, Mode=OneWay, Path=Value}" VerticalAlignment="Top" Height="20" Width="54" TextAlignment="Center" Foreground="White"/>
