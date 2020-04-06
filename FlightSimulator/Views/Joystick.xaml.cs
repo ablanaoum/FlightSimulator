@@ -15,10 +15,12 @@ namespace FlightSimulator.Views
             InitializeComponent();
             center = new Point(Base.Width / 2 - KnobBase.Width / 2, Base.Height / 2 - KnobBase.Height / 2);
             radius = Base.Width / 2;
+            maxDist = Base.Width / 2 - KnobBase.Width / 2;
         }
         private Point mouseDownLoc = new Point();
         private Point center;
         private double radius;
+        private double maxDist;
         public static readonly DependencyProperty elevator = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick), null);
         public static readonly DependencyProperty rudder = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick), null);
 
@@ -43,7 +45,6 @@ namespace FlightSimulator.Views
                 double x = e.GetPosition(this).X - mouseDownLoc.X;
                 double y = e.GetPosition(this).Y - mouseDownLoc.Y;
                 double dist = Math.Sqrt(x * x + y * y);
-                double maxDist = Base.Width / 2 - KnobBase.Width / 2;
                 double m;
                 
                 if (dist <= maxDist)
@@ -51,8 +52,8 @@ namespace FlightSimulator.Views
                   
                     knobPosition.X = x;
                     knobPosition.Y = y;
-                    Rudder = 2 * ((knobPosition.X + 125) / 250) - 1;
-                    Elevator = -1 * (2 * ((knobPosition.Y + 125) / 250) - 1);
+                    setNormalRudder();
+                    setNormalElevator();
                 }
                 else
                 {
@@ -68,20 +69,20 @@ namespace FlightSimulator.Views
                         {
                             knobPosition.Y = -125;
                         }
-                        Elevator = -1 * (2 * ((knobPosition.Y + 125) / 250) - 1);
+                        setNormalElevator();
                     }
                     else
                     {
                         m = y / x;
                         knobPosition.X = maxDist / Math.Sqrt(m * m + 1);
-                        Rudder = 2 * ((knobPosition.X + 125) / 250) - 1;
+                        setNormalRudder();
                         if (x < 0)
                         {
                             knobPosition.X = -1 * knobPosition.X;
-                            Rudder = 2 * ((knobPosition.X + 125) / 250) - 1;
+                            setNormalRudder();
                         }
                         knobPosition.Y = m * knobPosition.X;
-                        Elevator = -1 * (2 * ((knobPosition.Y + 125) / 250) - 1);
+                        setNormalElevator();
                     }
                     
                 }
@@ -120,6 +121,16 @@ namespace FlightSimulator.Views
             {
                 SetValue(elevator, value);
             }
+        }
+
+        private void setNormalRudder()
+        {
+            Rudder = 2 * ((knobPosition.X + maxDist) / (maxDist*2)) - 1;
+        }
+
+        private void setNormalElevator()
+        {
+            Elevator = -1 * (2 * ((knobPosition.Y + maxDist) / (maxDist*2)) - 1);
         }
     }
 }
