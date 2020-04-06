@@ -18,9 +18,9 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <c:Control Grid.Column="1" Grid.Row="1" Height="240"/>
+        <c:Control Grid.Column="1" Grid.Row="1" Height="240" x:Name="myControl"/>
         <c:Map Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" x:Name="myMap"/>
         <c:Dashboard Grid.Row="0" Grid.Column="1" x:Name="dash"/>
-        <Button Content="Disconnect" Grid.Column="1" HorizontalAlignment="Left" Margin="238,3.667,0,0" VerticalAlignment="Top" Width="85" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Button_Click" Grid.Row="1"/>
+        <Button Content="Disconnect" Grid.Column="1" HorizontalAlignment="Left" Margin="238,182.667,0,0" VerticalAlignment="Top" Width="85" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Button_Click" Grid.Row="1"/>
     </Grid>
 </Window>
