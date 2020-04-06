@@ -44,5 +44,15 @@ namespace FlightSimulatorApp
             get { return model.Port; }
             set { model.Port = value; }
         }
+
+        public string VM_ConnectionErrorMessage
+        {
+            get { return model.ConnectionErrorMessage; }
+        }
+
+        public string VM_ErrorScreen
+        {
+            get { return model.ErrorScreen; }
+        }
     }
 }

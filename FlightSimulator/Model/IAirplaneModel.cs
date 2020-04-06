@@ -34,6 +34,8 @@ namespace FlightSimulatorApp
         // Settings properties
         string Ip { set; get; }
         int Port { set; get; }
+        string ConnectionErrorMessage { set; get; }
+        string ErrorScreen { set; get; }
 
         /*
          

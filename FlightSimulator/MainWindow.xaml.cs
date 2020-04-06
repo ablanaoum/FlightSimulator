@@ -33,11 +33,18 @@ namespace FlightSimulator
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current as App).settingsVM.connect();
-            this.Hide();
-            Simulator si = new Simulator();
-            si.Show();
-            this.Close();
+            try
+            {
+                (Application.Current as App).settingsVM.connect();
+                this.Hide();
+                Simulator si = new Simulator();
+                si.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
         }
     }
 }
