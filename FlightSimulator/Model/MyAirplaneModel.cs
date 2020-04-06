@@ -67,10 +67,11 @@ namespace FlightSimulatorApp
         // Connection to the airplane
         public void connect()
         {
+            ConnectionErrorMessage = string.Empty;
             try
             {
                 client.connect(this.ip, this.port);
-                ConnectionErrorMessage = string.Empty;
+                ErrorScreen = "Welcome to Flight Simulator!";
             }
             catch (Exception)
             {
@@ -86,8 +87,7 @@ namespace FlightSimulatorApp
             this.commands.Clear();
             Ip = ConfigurationManager.AppSettings["ip"];
             Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
-            Console.WriteLine("Oops! Connection went wrong. Try to reconnect or close the simulator");
-            ErrorScreen = "Oops! Connection went wrong.Try to reconnect or close the simulator";
+            ErrorScreen = "Oops! Connection went wrong. Try to reconnect or close the simulator.";
         }
 
         public void disconnect()
@@ -201,7 +201,6 @@ namespace FlightSimulatorApp
             // If the server did not respond for at least 8-10 seconds
             if (stopWatch.ElapsedMilliseconds > 8000)
             {
-                Console.WriteLine("Notice: Server is busy...");
                 ErrorScreen = "Notice: Server is busy...";
             }
         }
@@ -330,6 +329,21 @@ namespace FlightSimulatorApp
             }
         }
 
+        private string errorScreen;
+        public string ErrorScreen
+        {
+            get { return this.errorScreen; }
+            set
+            {
+                if (this.errorScreen != value)
+                {
+                    this.errorScreen = value;
+                    this.NotifyPropertyChanged("ErrorScreen");
+                    Thread.Sleep(300);
+                }
+            }
+        }
+
         // Map properties
         private double longitude;
         public double Longitude
@@ -426,20 +440,6 @@ namespace FlightSimulatorApp
                 {
                     this.connectionErrorMessage = value;
                     this.NotifyPropertyChanged("ConnectionErrorMessage");
-                }
-            }
-        }
-
-        private string errorScreen;
-        public string ErrorScreen
-        {
-            get { return this.errorScreen; }
-            set
-            {
-                if (this.errorScreen != value)
-                {
-                    this.errorScreen = value;
-                    this.NotifyPropertyChanged("ErrorScreen");
                 }
             }
         }

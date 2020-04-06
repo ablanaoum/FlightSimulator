@@ -12,6 +12,7 @@ namespace FlightSimulatorApp
     {
         // Connection to the airplane
         void connect();
+        void reconnect();
         void disconnect();
         void start();
         void addSetCommand(string varName, double value);
