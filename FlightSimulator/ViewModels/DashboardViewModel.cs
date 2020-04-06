@@ -61,5 +61,10 @@ namespace FlightSimulatorApp
         {
             get { return model.Altimeter; }
         }
+
+        public string VM_ErrorScreen
+        {
+            get { return model.ErrorScreen; }
+        }
     }
 }

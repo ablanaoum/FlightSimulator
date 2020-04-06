@@ -11,7 +11,8 @@ namespace FlightSimulatorApp
     public interface IAirplaneModel : INotifyPropertyChanged
     {
         // Connection to the airplane
-        void connect(string ip, int port);
+        void connect();
+        void reconnect();
         void disconnect();
         void start();
         void addSetCommand(string varName, double value);
@@ -31,14 +32,10 @@ namespace FlightSimulatorApp
         double Latitude { set; get; }
         Location Location { set; get; }
 
-        /*
-         
-         // Controls properties
-        double Rudder { set; get; }
-        double Elevator { set; get; }
-        double Throttle { set; get; }
-        double Aileron { set; get; }
-
-         */
+        // Settings properties
+        string Ip { set; get; }
+        int Port { set; get; }
+        string ConnectionErrorMessage { set; get; }
+        string ErrorScreen { set; get; }
     }
 }

@@ -77,31 +77,5 @@ namespace FlightSimulatorApp
                 }
             }
         }
-
-
-        /*
-
-        // Navigators properties
-        public double VM_Rudder
-        {
-            get { return model.Rudder; }
-        }
-
-        public double VM_Elevator
-        {
-            get { return model.Elevator; }
-        }
-
-        public double VM_Throttle
-        {
-            get { return model.Throttle; }
-        }
-
-        public double VM_Aileron
-        {
-            get { return model.Aileron; }
-        }
-
-        */
     }
 }

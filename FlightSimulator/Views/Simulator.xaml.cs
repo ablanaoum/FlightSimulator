@@ -32,10 +32,15 @@ namespace FlightSimulator.Views
             myControl.DataContext = (Application.Current as App).controlsVM;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).settingsVM.disconnect();
             this.Close();
+        }
+
+        private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
+        {
+            (Application.Current as App).settingsVM.reconnect();
         }
     }
 }

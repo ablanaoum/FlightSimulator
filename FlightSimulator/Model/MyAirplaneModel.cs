@@ -6,20 +6,27 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Microsoft.Maps.MapControl.WPF;
+using System.Diagnostics;
+using System.Windows.Threading;
+using System.Configuration;
 
 namespace FlightSimulatorApp
 {
     public class MyAirplaneModel : IAirplaneModel
     {
-        //private static MyAirplaneModel instance;
         private ITelnetClient client;
         private volatile Boolean stop;
+        // Array of tuples of <simulator's variable name, value>
         private Tuple<string, double>[] simVars;
-        // 'set' commands to send to the simulator
+        // Queue of 'set' commands to send to the simulator
         private Queue<string> commands;
         private readonly object syncLock;
+        // Stopwatch to measure server response time
+        private Stopwatch stopWatch;
+        // Timer to perform an action repeatedly within a given interval
+        private DispatcherTimer timer;
 
-
+        // Constructor
         public MyAirplaneModel()
         {
             this.client = new MyTelnetClient();
@@ -27,20 +34,15 @@ namespace FlightSimulatorApp
             this.simVars = this.createSimVarsArr();
             this.commands = new Queue<string>();
             this.syncLock = new object();
+            this.stopWatch = new Stopwatch();
+            this.timer = new DispatcherTimer();
+            // Set the timer to perform the function repeatedly within 2 seconds
+            this.timer.Interval = TimeSpan.FromSeconds(2);
+            this.timer.Tick += timerTick;
+            // Default IP and port
+            Ip = ConfigurationManager.AppSettings["ip"];
+            Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
         }
-
-        
-         /*
-        public static MyAirplaneModel GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new MyAirplaneModel();
-            }
-            return instance;
-        }*/
-
-        
 
         // Create array of tuples of <simulator's variable name, value>
         private Tuple<string, double>[] createSimVarsArr()
@@ -63,14 +65,35 @@ namespace FlightSimulatorApp
         }
 
         // Connection to the airplane
-        public void connect(string ip, int port)
+        public void connect()
         {
-            client.connect(ip, port);
+            ConnectionErrorMessage = string.Empty;
+            try
+            {
+                client.connect(this.ip, this.port);
+                ErrorScreen = "Welcome to Flight Simulator!";
+            }
+            catch (Exception)
+            {
+                ConnectionErrorMessage = "Unable to connect, please try again";
+                throw new Exception("Unable to connect, please try again");
+            }
+        }
+
+        public void reconnect()
+        {
+            disconnect();
+            this.simVars = this.createSimVarsArr();
+            this.commands.Clear();
+            Ip = ConfigurationManager.AppSettings["ip"];
+            Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
+            ErrorScreen = "Oops! Connection went wrong. Try to reconnect or close the simulator.";
         }
 
         public void disconnect()
         {
             stop = true;
+            timer.Stop();
             client.disconnect();
         }
 
@@ -82,65 +105,53 @@ namespace FlightSimulatorApp
 
         public void start()
         {
+            this.stop = false;
+            timer.Start();
             // Thread for getting values from the simulator
             new Thread(delegate ()
             {
                 string varName, command, receivedMessageFromGet;
-                while (!stop)
+                try
                 {
-                    /*
-                    // Get dashboard values from the simulator
-                    tcpClient.write("get indicated-heading-deg\n");
-                    Heading = Double.Parse(tcpClient.read());
-                    tcpClient.write("get gps_indicated-vertical-speed\n");
-                    GpsVerticalSpeed = Double.Parse(tcpClient.read());
-                    tcpClient.write("get gps_indicated-ground-speed-kt\n");
-                    GpsGroundSpeed = Double.Parse(tcpClient.read());
-                    tcpClient.write("get airspeed-indicator_indicated-speed-kt\n");
-                    AirspeedIndicatorSpeed = Double.Parse(tcpClient.read());
-                    tcpClient.write("get gps_indicated-altitude-ft\n");
-                    GpsAltitude = Double.Parse(tcpClient.read());
-                    tcpClient.write("get attitude-indicator_internal-roll-deg\n");
-                    AttitudeIndicatorInternalRoll = Double.Parse(tcpClient.read());
-                    tcpClient.write("get attitude-indicator_internal-pitch-deg\n");
-                    AttitudeIndicatorInternalPitch = Double.Parse(tcpClient.read());
-                    tcpClient.write("get altimeter_indicated-altitude-ft\n");
-                    AltimeterAltitude = Double.Parse(tcpClient.read());
-                    */
-
-                    // Get values from the simulator
-                    for (int i = 0; i < 10; i++)
+                    while (!stop)
                     {
-                        varName = simVars[i].Item1;
-                        command = "get " + varName + "\n";
-                        // Send 'get' command to the server
-                        //client.write(command);
-                        receivedMessageFromGet = writeAndRead(command);
-                        try
+                        // Get values from the simulator
+                        for (int i = 0; i < 10; i++)
                         {
-                            //simVars[i] = new Tuple<string, double>(varName, Double.Parse(client.read()));
-                            simVars[i] = new Tuple<string, double>(varName, Double.Parse(receivedMessageFromGet));
+                            varName = simVars[i].Item1;
+                            command = "get " + varName + "\n";
+                            // Send 'get' command to the server and receive the returned value
+                            receivedMessageFromGet = writeAndRead(command);
+                            try
+                            {
+                                simVars[i] = new Tuple<string, double>(varName, Double.Parse(receivedMessageFromGet));
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Exception: Invalid value received for \"{0}\"", varName);
+                                ErrorScreen = "Exception: Invalid value received for \"" + varName + "\"";
+                            }
                         }
-                        catch (Exception)
-                        {
-                            Console.WriteLine("Exception: Invalid value received for \"{0}\"", varName);
-                        }
-                    }
-                    // Set the properties
-                    Heading = simVars[0].Item2;
-                    VerticalSpeed = simVars[1].Item2;
-                    GroundSpeed = simVars[2].Item2;
-                    Airspeed = simVars[3].Item2;
-                    Altitude = simVars[4].Item2;
-                    Roll = simVars[5].Item2;
-                    Pitch = simVars[6].Item2;
-                    Altimeter = simVars[7].Item2;
-                    Longitude = simVars[8].Item2;
-                    Latitude = simVars[9].Item2;
-                    Location = new Location(Latitude,Longitude);
+                        // Set the properties
+                        Heading = simVars[0].Item2;
+                        VerticalSpeed = simVars[1].Item2;
+                        GroundSpeed = simVars[2].Item2;
+                        Airspeed = simVars[3].Item2;
+                        Altitude = simVars[4].Item2;
+                        Roll = simVars[5].Item2;
+                        Pitch = simVars[6].Item2;
+                        Altimeter = simVars[7].Item2;
+                        Longitude = simVars[8].Item2;
+                        Latitude = simVars[9].Item2;
+                        Location = new Location(Latitude, Longitude);
 
-                    // Read the data in 4Hz
-                    Thread.Sleep(250);
+                        // Read the data in 4Hz
+                        Thread.Sleep(250);
+                    }
+                }
+                catch (Exception)
+                {
+                    reconnect();
                 }
             }).Start();
 
@@ -148,19 +159,23 @@ namespace FlightSimulatorApp
             new Thread(delegate ()
             {
                 string receivedMessageFromSet;
-                while (!stop)
+                try
                 {
-                    // While the commands queue is not empty
-                    if (commands.Count != 0)
+                    while (!stop)
                     {
-                        receivedMessageFromSet = writeAndRead(commands.Dequeue());
-                        //client.write(commands.Dequeue());
-                        // Do nothing with the returned value
-                        //client.read();
-                    }
+                        // While the commands queue is not empty
+                        if (commands.Count != 0)
+                        {
+                            receivedMessageFromSet = writeAndRead(commands.Dequeue());
+                        }
 
-                    // Read the data in 4Hz
-                    Thread.Sleep(50);
+                        // Read the data in 4Hz
+                        Thread.Sleep(1);
+                    }
+                }
+                catch (Exception)
+                {
+                    reconnect();
                 }
             }).Start();
         }
@@ -169,8 +184,24 @@ namespace FlightSimulatorApp
         {
             lock (syncLock)
             {
+                string message;
                 client.write(command);
-                return client.read();
+                // Measure the server response time
+                stopWatch.Restart();
+                // Thread.Sleep(10000);  // Test waiting for response from the server for 10 seconds
+                message = client.read();
+                stopWatch.Reset();
+                return message;
+            }
+        }
+
+        // The function notifies the user when the server is busy and responds slowly
+        public void timerTick(object sender, EventArgs e)
+        {
+            // If the server did not respond for at least 8-10 seconds
+            if (stopWatch.ElapsedMilliseconds > 8000)
+            {
+                ErrorScreen = "Notice: Server is busy...";
             }
         }
 
@@ -185,7 +216,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Dashboard properties implementation
+        // Dashboard properties
         private double heading;
         public double Heading
         {
@@ -298,7 +329,22 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Map properties implementation
+        private string errorScreen;
+        public string ErrorScreen
+        {
+            get { return this.errorScreen; }
+            set
+            {
+                if (this.errorScreen != value)
+                {
+                    this.errorScreen = value;
+                    this.NotifyPropertyChanged("ErrorScreen");
+                    Thread.Sleep(300);
+                }
+            }
+        }
+
+        // Map properties
         private double longitude;
         public double Longitude
         {
@@ -307,8 +353,15 @@ namespace FlightSimulatorApp
             {
                 if (this.longitude != value)
                 {
-                    this.longitude = value;
-                    this.NotifyPropertyChanged("Longitude");
+                    if ((value >= -180) && (value <= 180))
+                    {
+                        this.longitude = value;
+                        this.NotifyPropertyChanged("Longitude");
+                    }
+                    else
+                    {
+                        ErrorScreen = "Exception: Invalid value received for /position/longitude-deg";
+                    }
                 }
             }
         }
@@ -321,8 +374,15 @@ namespace FlightSimulatorApp
             {
                 if (this.latitude != value)
                 {
-                    this.latitude = value;
-                    this.NotifyPropertyChanged("Latitude");
+                    if ((value >= -90) && (value <= 90))
+                    {
+                        this.latitude = value;
+                        this.NotifyPropertyChanged("Latitude");
+                    }
+                    else
+                    {
+                        ErrorScreen = "Exception: Invalid value received for /position/latitude-deg";
+                    }
                 }
             }
         }
@@ -330,76 +390,58 @@ namespace FlightSimulatorApp
         private Location location;
         public Location Location
         {
-            get
-            {
-                return location;
-            }
+            get { return this.location; }
             set
             {
-                location = value;
-                NotifyPropertyChanged("Location");
-            }
-        }
-
-        /*
-
-        // Controls properties implementation
-        private double rudder;
-        public double Rudder
-        {
-            get { return this.rudder; }
-            set
-            {
-                if (this.rudder != value)
+                if (this.location != value)
                 {
-                    this.rudder = value;
-                    this.NotifyPropertyChanged("Rudder");
+                    this.location = value;
+                    this.NotifyPropertyChanged("Location");
                 }
             }
         }
 
-        private double elevator;
-        public double Elevator
+        // Settings properties
+        private string ip;
+        public string Ip
         {
-            get { return this.elevator; }
+            get { return this.ip; }
             set
             {
-                if (this.elevator != value)
+                if (this.ip != value)
                 {
-                    this.elevator = value;
-                    this.NotifyPropertyChanged("Elevator");
+                    this.ip = value;
+                    this.NotifyPropertyChanged("Ip");
                 }
             }
         }
 
-        private double throttle;
-        public double Throttle
+        private int port;
+        public int Port
         {
-            get { return this.throttle; }
+            get { return this.port; }
             set
             {
-                if (this.throttle != value)
+                if (this.port != value)
                 {
-                    this.throttle = value;
-                    this.NotifyPropertyChanged("Throttle");
+                    this.port = value;
+                    this.NotifyPropertyChanged("Port");
                 }
             }
         }
 
-        private double aileron;
-        public double Aileron
+        private string connectionErrorMessage;
+        public string ConnectionErrorMessage
         {
-            get { return this.aileron; }
+            get { return this.connectionErrorMessage; }
             set
             {
-                if (this.aileron != value)
+                if (this.connectionErrorMessage != value)
                 {
-                    this.aileron = value;
-                    this.NotifyPropertyChanged("Aileron");
+                    this.connectionErrorMessage = value;
+                    this.NotifyPropertyChanged("ConnectionErrorMessage");
                 }
             }
         }
-
-         */
     }
 }

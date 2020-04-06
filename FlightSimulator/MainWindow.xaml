@@ -28,6 +28,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <TextBlock HorizontalAlignment="Left" Margin="280,324,0,0" Text="{Binding VM_ConnectionErrorMessage}" VerticalAlignment="Top" Height="36" Width="319" Foreground="#FFE40000" FontFamily="Segoe Print" FontWeight="Bold" FontSize="17" Grid.Column="2" />
 
     </Grid>
 </Window>
