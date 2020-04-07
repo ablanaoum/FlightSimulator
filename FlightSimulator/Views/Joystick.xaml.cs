@@ -13,6 +13,7 @@ namespace FlightSimulator.Views
         private Point mouseDownLoc = new Point();
         private Point center;
         private double radius;
+        private double maxDist;
         public static readonly DependencyProperty RudderProperty = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick));
         public static readonly DependencyProperty ElevatorProperty = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick));
 
@@ -23,11 +24,6 @@ namespace FlightSimulator.Views
             radius = Base.Width / 2;
             maxDist = Base.Width / 2 - KnobBase.Width / 2;
         }
-        private Point mouseDownLoc = new Point();
-        private Point center;
-        private double radius;
-        public static readonly DependencyProperty elevator = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick), null);
-        public static readonly DependencyProperty rudder = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick), null);
 
 
         private void Knob_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
