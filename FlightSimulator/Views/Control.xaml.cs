@@ -24,27 +24,5 @@ namespace FlightSimulator.Views
         {
             InitializeComponent();
         }
-
-        private void aileron_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            (Application.Current as App).controlsVM.VM_Aileron = aileron.Value;
-        }
-
-        private void throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            (Application.Current as App).controlsVM.VM_Throttle = throttle.Value;
-        }
-
-        private void rudder_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            double valueRud = Convert.ToDouble(rudder.Text);
-            (Application.Current as App).controlsVM.VM_Rudder = valueRud;
-        }
-
-        private void elevator_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            double valueEle = Convert.ToDouble(elevator.Text);
-            (Application.Current as App).controlsVM.VM_Elevator = valueEle;
-        }
     }
 }

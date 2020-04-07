@@ -22,7 +22,6 @@ namespace FlightSimulator
 
         void App_Startup(object sender, StartupEventArgs e)
         {
-
             airplaneModel = new MyAirplaneModel();
             settingsVM = new SettingsViewModel(airplaneModel);
             dashboardVM = new DashboardViewModel(airplaneModel);

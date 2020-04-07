@@ -41,6 +41,7 @@ namespace FlightSimulator.Views
         private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).settingsVM.reconnect();
+            // Return to MainWindow
         }
     }
 }
