@@ -9,6 +9,7 @@ using Microsoft.Maps.MapControl.WPF;
 using System.Diagnostics;
 using System.Windows.Threading;
 using System.Configuration;
+using FlightSimulator;
 
 namespace FlightSimulatorApp
 {
