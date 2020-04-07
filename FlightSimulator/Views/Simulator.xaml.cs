@@ -22,8 +22,7 @@ namespace FlightSimulator.Views
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class Simulator : Window
-    {
-    
+    {  
         public Simulator()
         {
             InitializeComponent();
@@ -41,7 +40,7 @@ namespace FlightSimulator.Views
         private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).settingsVM.reconnect();
-            //Return to main window for connection.
+            // Return to main window for reconnection
             MainWindow logIn = new MainWindow();
             logIn.Show();
             this.Close();

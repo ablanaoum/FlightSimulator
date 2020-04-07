@@ -32,6 +32,12 @@ namespace FlightSimulatorApp
         double Latitude { set; get; }
         Location Location { set; get; }
 
+        // Controls properties
+        double Rudder { set; get; }
+        double Elevator { set; get; }
+        double Throttle { set; get; }
+        double Aileron { set; get; }
+
         // Settings properties
         string Ip { set; get; }
         int Port { set; get; }

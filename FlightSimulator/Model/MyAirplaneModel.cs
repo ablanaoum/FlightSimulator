@@ -84,10 +84,12 @@ namespace FlightSimulatorApp
         public void reconnect()
         {
             disconnect();
-            this.simVars = this.createSimVarsArr();
-            this.commands.Clear();
+            Throttle = 0;
+            Aileron = 0;
             Ip = ConfigurationManager.AppSettings["ip"];
             Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
+            this.simVars = this.createSimVarsArr();
+            this.commands.Clear();
             ErrorScreen = "Oops! Connection went wrong. Try to reconnect or close the simulator.";
         }
 
@@ -340,7 +342,7 @@ namespace FlightSimulatorApp
                 {
                     this.errorScreen = value;
                     this.NotifyPropertyChanged("ErrorScreen");
-                    Thread.Sleep(300);
+                    Thread.Sleep(200);
                 }
             }
         }
@@ -398,6 +400,63 @@ namespace FlightSimulatorApp
                 {
                     this.location = value;
                     this.NotifyPropertyChanged("Location");
+                }
+            }
+        }
+
+        // Controls properties
+        private double rudder;
+        public double Rudder
+        {
+            get { return this.rudder; }
+            set
+            {
+                if (this.rudder != value)
+                {
+                    this.rudder = value;
+                    this.NotifyPropertyChanged("Rudder");
+                }
+            }
+        }
+
+        private double elevator;
+        public double Elevator
+        {
+            get { return this.elevator; }
+            set
+            {
+                if (this.elevator != value)
+                {
+                    this.elevator = value;
+                    this.NotifyPropertyChanged("Elevator");
+                }
+            }
+        }
+
+        private double throttle;
+        public double Throttle
+        {
+            get { return this.throttle; }
+            set
+            {
+                if (this.throttle != value)
+                {
+                    this.throttle = value;
+                    this.NotifyPropertyChanged("Throttle");
+                }
+            }
+        }
+
+        private double aileron;
+        public double Aileron
+        {
+            get { return this.aileron; }
+            set
+            {
+                if (this.aileron != value)
+                {
+                    this.aileron = value;
+                    this.NotifyPropertyChanged("Aileron");
                 }
             }
         }

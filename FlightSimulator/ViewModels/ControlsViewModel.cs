@@ -22,58 +22,54 @@ namespace FlightSimulatorApp
         }
 
         // Controls properties
-        private double rudder;
         public double VM_Rudder
         {
-            get { return this.rudder; }
+            get { return model.Rudder; }
             set
             {
-                if (this.rudder != value)
+                if (model.Rudder != value)
                 {
-                    this.rudder = value;
-                    model.addSetCommand("/controls/flight/rudder", this.rudder);
+                    model.Rudder = value;
+                    model.addSetCommand("/controls/flight/rudder", model.Rudder);
                 }
             }
         }
 
-        private double elevator;
         public double VM_Elevator
         {
-            get { return this.elevator; }
+            get { return model.Elevator; }
             set
             {
-                if (this.elevator != value)
+                if (model.Elevator != value)
                 {
-                    this.elevator = value;
-                    model.addSetCommand("/controls/flight/elevator", this.elevator);
+                    model.Elevator = value;
+                    model.addSetCommand("/controls/flight/elevator", model.Elevator);
                 }
             }
         }
 
-        private double throttle;
         public double VM_Throttle
         {
-            get { return this.throttle; }
+            get { return model.Throttle; }
             set
             {
-                if (this.throttle != value)
+                if (model.Throttle != value)
                 {
-                    this.throttle = value;
-                    model.addSetCommand("/controls/engines/current-engine/throttle", this.throttle);
+                    model.Throttle = value;
+                    model.addSetCommand("/controls/engines/current-engine/throttle", model.Throttle);
                 }
             }
         }
 
-        private double aileron;
         public double VM_Aileron
         {
-            get { return this.aileron; }
+            get { return model.Aileron; }
             set
             {
-                if (this.aileron != value)
+                if (model.Aileron != value)
                 {
-                    this.aileron = value;
-                    model.addSetCommand("/controls/flight/aileron", this.aileron);
+                    model.Aileron = value;
+                    model.addSetCommand("/controls/flight/aileron", model.Aileron);
                 }
             }
         }
