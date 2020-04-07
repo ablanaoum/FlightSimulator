@@ -8,8 +8,14 @@ using System.Windows;
 
 namespace FlightSimulator.Views
 {
-    public partial class Joystick :UserControl
+    public partial class Joystick : UserControl
     {
+        private Point mouseDownLoc = new Point();
+        private Point center;
+        private double radius;
+        public static readonly DependencyProperty RudderProperty = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick));
+        public static readonly DependencyProperty ElevatorProperty = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick));
+
         public Joystick()
         {
             InitializeComponent();
@@ -20,12 +26,8 @@ namespace FlightSimulator.Views
         private Point mouseDownLoc = new Point();
         private Point center;
         private double radius;
-        private double maxDist;
         public static readonly DependencyProperty elevator = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick), null);
         public static readonly DependencyProperty rudder = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick), null);
-
-
-        private void centerKnob_Completed(object sender, EventArgs e) { }
 
 
         private void Knob_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -35,7 +37,6 @@ namespace FlightSimulator.Views
             knobPosition.Y = 0;
             Rudder = knobPosition.X;
             Elevator = knobPosition.Y;
-
         }
 
         private void Knob_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -99,15 +100,18 @@ namespace FlightSimulator.Views
             }
         }
 
+        private void centerKnob_Completed(object sender, EventArgs e) { }
+
+        // Dependency Properties
         public double Rudder
         {
             get
             {
-                return Convert.ToDouble(GetValue(rudder));
+                return (double)GetValue(RudderProperty);
             }
             set
             {
-                SetValue(rudder, value);
+                SetValue(RudderProperty, value);
             }
         }
 
@@ -115,11 +119,11 @@ namespace FlightSimulator.Views
         {
             get
             {
-                return Convert.ToDouble(GetValue(elevator));
+                return (double)GetValue(ElevatorProperty);
             }
             set
             {
-                SetValue(elevator, value);
+                SetValue(ElevatorProperty, value);
             }
         }
 
