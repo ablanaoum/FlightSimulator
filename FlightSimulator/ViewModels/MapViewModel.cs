@@ -12,7 +12,7 @@ namespace FlightSimulatorApp
     {
         private IAirplaneModel model;
 
-        // Constructor
+        // Constructor.
         public MapViewModel(IAirplaneModel airplaneModel)
         {
             this.model = airplaneModel;
@@ -22,7 +22,7 @@ namespace FlightSimulatorApp
             };
         }
 
-        // Map properties
+        // Map properties.
         public double VM_Longitude
         {
             get { return model.Longitude; }

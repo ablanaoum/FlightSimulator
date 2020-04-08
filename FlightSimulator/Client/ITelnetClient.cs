@@ -8,9 +8,9 @@ namespace FlightSimulatorApp
 {
     public interface ITelnetClient
     {
-        void connect(string ip, int port);
-        void write(string command);
-        string read();
-        void disconnect();
+        void Connect(string ip, int port);
+        void Write(string command);
+        string Read();
+        void Disconnect();
     }
 }

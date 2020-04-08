@@ -10,7 +10,6 @@ namespace FlightSimulatorApp
     public abstract class VMNotifyPropertyChanged : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)

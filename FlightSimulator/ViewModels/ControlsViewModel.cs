@@ -11,7 +11,7 @@ namespace FlightSimulatorApp
     {
         private IAirplaneModel model;
 
-        // Constructor
+        // Constructor.
         public ControlsViewModel(IAirplaneModel airplaneModel)
         {
             this.model = airplaneModel;
@@ -21,7 +21,7 @@ namespace FlightSimulatorApp
             };
         }
 
-        // Controls properties
+        // Controls properties.
         public double VM_Rudder
         {
             get { return model.Rudder; }
@@ -30,7 +30,7 @@ namespace FlightSimulatorApp
                 if (model.Rudder != value)
                 {
                     model.Rudder = value;
-                    model.addSetCommand("/controls/flight/rudder", model.Rudder);
+                    model.AddSetCommand("/controls/flight/rudder", model.Rudder);
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace FlightSimulatorApp
                 if (model.Elevator != value)
                 {
                     model.Elevator = value;
-                    model.addSetCommand("/controls/flight/elevator", model.Elevator);
+                    model.AddSetCommand("/controls/flight/elevator", model.Elevator);
                 }
             }
         }
@@ -56,7 +56,7 @@ namespace FlightSimulatorApp
                 if (model.Throttle != value)
                 {
                     model.Throttle = value;
-                    model.addSetCommand("/controls/engines/current-engine/throttle", model.Throttle);
+                    model.AddSetCommand("/controls/engines/current-engine/throttle", model.Throttle);
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace FlightSimulatorApp
                 if (model.Aileron != value)
                 {
                     model.Aileron = value;
-                    model.addSetCommand("/controls/flight/aileron", model.Aileron);
+                    model.AddSetCommand("/controls/flight/aileron", model.Aileron);
                 }
             }
         }

@@ -17,14 +17,14 @@ namespace FlightSimulatorApp
     {
         private ITelnetClient client;
         private volatile Boolean stop;
-        // Array of tuples of <simulator's variable name, value>
+        // Array of tuples of <simulator's variable name, value>.
         private Tuple<string, double>[] simVars;
-        // Queue of 'set' commands to send to the simulator
+        // Queue of 'set' commands to send to the simulator.
         private Queue<string> commands;
         private readonly object syncLock;
-        // Stopwatch to measure server response time
+        // Stopwatch to measure server response time.
         private Stopwatch stopWatch;
-        // Timer to perform an action repeatedly within a given interval
+        // Timer to perform an action repeatedly within a given interval.
         private DispatcherTimer timer;
 
         // Constructor
@@ -32,21 +32,21 @@ namespace FlightSimulatorApp
         {
             this.client = new MyTelnetClient();
             this.stop = false;
-            this.simVars = this.createSimVarsArr();
+            this.simVars = this.CreateSimVarsArr();
             this.commands = new Queue<string>();
             this.syncLock = new object();
             this.stopWatch = new Stopwatch();
             this.timer = new DispatcherTimer();
-            // Set the timer to perform the function repeatedly within 2 seconds
+            // Set the timer to perform the function repeatedly within 2 seconds.
             this.timer.Interval = TimeSpan.FromSeconds(2);
-            this.timer.Tick += timerTick;
-            // Default IP and port
+            this.timer.Tick += TimerTick;
+            // Default IP and port.
             Ip = ConfigurationManager.AppSettings["ip"];
             Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
         }
 
-        // Create array of tuples of <simulator's variable name, value>
-        private Tuple<string, double>[] createSimVarsArr()
+        // Create array of tuples of <simulator's variable name, value>.
+        private Tuple<string, double>[] CreateSimVarsArr()
         {
             Tuple<string, double>[] simVarsArr =
             {
@@ -65,13 +65,13 @@ namespace FlightSimulatorApp
             return simVarsArr;
         }
 
-        // Connection to the airplane
-        public void connect()
+        // Connection to the airplane.
+        public void Connect()
         {
             ConnectionErrorMessage = string.Empty;
             try
             {
-                client.connect(this.ip, this.port);
+                client.Connect(this.ip, this.port);
                 ErrorScreen = "Welcome to Flight Simulator!";
             }
             catch (Exception)
@@ -81,36 +81,36 @@ namespace FlightSimulatorApp
             }
         }
 
-        public void reconnect()
+        public void Reconnect()
         {
-            disconnect();
+            Disconnect();
             Throttle = 0;
             Aileron = 0;
             Ip = ConfigurationManager.AppSettings["ip"];
             Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
-            this.simVars = this.createSimVarsArr();
+            this.simVars = this.CreateSimVarsArr();
             this.commands.Clear();
             ErrorScreen = "Oops! Connection went wrong. Try to reconnect or close the simulator.";
         }
 
-        public void disconnect()
+        public void Disconnect()
         {
             stop = true;
             timer.Stop();
-            client.disconnect();
+            client.Disconnect();
         }
 
-        public void addSetCommand(string varName, double value)
+        public void AddSetCommand(string varName, double value)
         {
             string command = "set " + varName + " " + value + "\n";
             this.commands.Enqueue(command);
         }
 
-        public void start()
+        public void Start()
         {
             this.stop = false;
             timer.Start();
-            // Thread for getting values from the simulator
+            // Thread for getting values from the simulator.
             new Thread(delegate ()
             {
                 string varName, command, receivedMessageFromGet;
@@ -118,13 +118,13 @@ namespace FlightSimulatorApp
                 {
                     while (!stop)
                     {
-                        // Get values from the simulator
+                        // Get values from the simulator.
                         for (int i = 0; i < 10; i++)
                         {
                             varName = simVars[i].Item1;
                             command = "get " + varName + "\n";
-                            // Send 'get' command to the server and receive the returned value
-                            receivedMessageFromGet = writeAndRead(command);
+                            // Send 'get' command to the server and receive the returned value.
+                            receivedMessageFromGet = WriteAndRead(command);
                             try
                             {
                                 simVars[i] = new Tuple<string, double>(varName, Double.Parse(receivedMessageFromGet));
@@ -135,7 +135,7 @@ namespace FlightSimulatorApp
                                 ErrorScreen = "Exception: Invalid value received for \"" + varName + "\"";
                             }
                         }
-                        // Set the properties
+                        // Set the properties.
                         Heading = simVars[0].Item2;
                         VerticalSpeed = simVars[1].Item2;
                         GroundSpeed = simVars[2].Item2;
@@ -148,17 +148,17 @@ namespace FlightSimulatorApp
                         Latitude = simVars[9].Item2;
                         Location = new Location(Latitude, Longitude);
 
-                        // Read the data in 4Hz
+                        // Read the data in 4Hz.
                         Thread.Sleep(250);
                     }
                 }
                 catch (Exception)
                 {
-                    reconnect();
+                    Reconnect();
                 }
             }).Start();
 
-            // Tread for sending values to the simulator
+            // Tread for sending values to the simulator.
             new Thread(delegate ()
             {
                 string receivedMessageFromSet;
@@ -166,49 +166,48 @@ namespace FlightSimulatorApp
                 {
                     while (!stop)
                     {
-                        // While the commands queue is not empty
+                        // While the commands queue is not empty.
                         if (commands.Count != 0)
                         {
-                            receivedMessageFromSet = writeAndRead(commands.Dequeue());
+                            receivedMessageFromSet = WriteAndRead(commands.Dequeue());
                         }
 
-                        // Read the data in 4Hz
                         Thread.Sleep(1);
                     }
                 }
                 catch (Exception)
                 {
-                    reconnect();
+                    Reconnect();
                 }
             }).Start();
         }
 
-        public string writeAndRead(string command)
+        public string WriteAndRead(string command)
         {
             lock (syncLock)
             {
                 string message;
-                client.write(command);
-                // Measure the server response time
+                client.Write(command);
+                // Measure the server response time.
                 stopWatch.Restart();
-                // Thread.Sleep(10000);  // Test waiting for response from the server for 10 seconds
-                message = client.read();
+                // Thread.Sleep(10000);  // Test waiting for response from the server for 10 seconds.
+                message = client.Read();
                 stopWatch.Reset();
                 return message;
             }
         }
 
-        // The function notifies the user when the server is busy and responds slowly
-        public void timerTick(object sender, EventArgs e)
+        // The function notifies the user when the server is busy and responds slowly.
+        public void TimerTick(object sender, EventArgs e)
         {
-            // If the server did not respond for at least 8-10 seconds
+            // If the server did not respond for at least 8-10 seconds.
             if (stopWatch.ElapsedMilliseconds > 8000)
             {
                 ErrorScreen = "Notice: Server is busy...";
             }
         }
 
-        // INotifyPropertyChanged implementation
+        // INotifyPropertyChanged implementation.
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propName)
@@ -219,7 +218,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Dashboard properties
+        // Dashboard properties.
         private double heading;
         public double Heading
         {
@@ -347,7 +346,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Map properties
+        // Map properties.
         private double longitude;
         public double Longitude
         {
@@ -404,7 +403,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Controls properties
+        // Controls properties.
         private double rudder;
         public double Rudder
         {
@@ -461,7 +460,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // Settings properties
+        // Settings properties.
         private string ip;
         public string Ip
         {

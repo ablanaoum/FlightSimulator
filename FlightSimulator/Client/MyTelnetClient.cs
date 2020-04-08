@@ -10,45 +10,45 @@ namespace FlightSimulatorApp
         private TcpClient client;
         private NetworkStream stream;
 
-        // Constructor
+        // Constructor.
         public MyTelnetClient() { }
 
-        public void connect(string ip, int port)
+        public void Connect(string ip, int port)
         {
-                // Create a TcpClient
+                // Create a TcpClient.
                 this.client = new TcpClient(ip, port);
-                // Get a client stream for reading and writing
+                // Get a client stream for reading and writing.
                 this.stream = client.GetStream();
         }
 
-        public void write(string command)
+        public void Write(string command)
         {
-            // Translate the passed command into ASCII and store it as a Byte array
+            // Translate the passed command into ASCII and store it as a Byte array.
             byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
-            // Send the command to the connected TcpServer
+            // Send the command to the connected TcpServer.
             stream.Write(data, 0, data.Length);
-            // Write the command sent to the console
+            // Write the command sent to the console.
             Console.WriteLine("Sent: {0}", command);
         }
 
-        // Receive the TcpServer response
-        public string read()
+        // Receive the TcpServer response.
+        public string Read()
         {
-            // Buffer to store the response bytes
+            // Buffer to store the response bytes.
             byte[] data = new byte[256];
-            // String to store the response ASCII representation
+            // String to store the response ASCII representation.
             string responseData;
-            // Read the first batch of the TcpServer response bytes
+            // Read the first batch of the TcpServer response bytes.
             int bytes = stream.Read(data, 0, data.Length);
             responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-            // Write the response received to the console
+            // Write the response received to the console.
             Console.WriteLine("Received: {0}", responseData);
             return responseData;
         }
 
-        public void disconnect()
+        public void Disconnect()
         {
-            // Close everything
+            // Close everything.
             stream.Close();
             client.Close();
         }

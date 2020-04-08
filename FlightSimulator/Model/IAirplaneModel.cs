@@ -10,14 +10,14 @@ namespace FlightSimulatorApp
 {
     public interface IAirplaneModel : INotifyPropertyChanged
     {
-        // Connection to the airplane
-        void connect();
-        void reconnect();
-        void disconnect();
-        void start();
-        void addSetCommand(string varName, double value);
+        // Connection to the airplane.
+        void Connect();
+        void Reconnect();
+        void Disconnect();
+        void Start();
+        void AddSetCommand(string varName, double value);
 
-        // Dashboard properties
+        // Dashboard properties.
         double Heading { set; get; }
         double VerticalSpeed { set; get; }
         double GroundSpeed { set; get; }
@@ -27,18 +27,18 @@ namespace FlightSimulatorApp
         double Pitch { set; get; }
         double Altimeter { set; get; }
 
-        // Map properties
+        // Map properties.
         double Longitude { set; get; }
         double Latitude { set; get; }
         Location Location { set; get; }
 
-        // Controls properties
+        // Controls properties.
         double Rudder { set; get; }
         double Elevator { set; get; }
         double Throttle { set; get; }
         double Aileron { set; get; }
 
-        // Settings properties
+        // Settings properties.
         string Ip { set; get; }
         int Port { set; get; }
         string ConnectionErrorMessage { set; get; }

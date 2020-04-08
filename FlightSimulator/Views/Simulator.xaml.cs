@@ -19,7 +19,7 @@ using Microsoft.Maps.MapControl.WPF;
 namespace FlightSimulator.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml.
     /// </summary>
     public partial class Simulator : Window
     {  
@@ -33,14 +33,14 @@ namespace FlightSimulator.Views
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current as App).settingsVM.disconnect();
+            (Application.Current as App).settingsVM.Disconnect();
             this.Close();
         }
 
         private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current as App).settingsVM.reconnect();
-            // Return to main window for reconnection
+            (Application.Current as App).settingsVM.Reconnect();
+            // Return to main window for reconnection.
             MainWindow logIn = new MainWindow();
             logIn.Show();
             this.Close();

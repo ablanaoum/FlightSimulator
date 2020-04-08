@@ -11,7 +11,7 @@ namespace FlightSimulatorApp
     {
         private IAirplaneModel model;
 
-        // Constructor
+        // Constructor.
         public DashboardViewModel(IAirplaneModel airplaneModel)
         {
             this.model = airplaneModel;
@@ -21,7 +21,7 @@ namespace FlightSimulatorApp
             };
         }
 
-        // Dashboard properties
+        // Dashboard properties.
         public double VM_Heading
         {
             get { return model.Heading; }

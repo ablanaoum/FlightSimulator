@@ -18,12 +18,10 @@ using System.Windows.Shapes;
 namespace FlightSimulator
 {
     /// <summary>
-    /// Interaction logic for Conection.xaml
+    /// Interaction logic for Conection.xaml.
     /// </summary>
     public partial class MainWindow : Window
-    {
-
-        
+    {  
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +32,7 @@ namespace FlightSimulator
         {
             try
             {
-                (Application.Current as App).settingsVM.connect();
+                (Application.Current as App).settingsVM.Connect();
                 this.Hide();
                 Simulator si = new Simulator();
                 si.Show();

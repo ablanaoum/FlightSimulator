@@ -11,7 +11,7 @@ namespace FlightSimulatorApp
     {
         private IAirplaneModel model;
 
-        // Constructor
+        // Constructor.
         public SettingsViewModel(IAirplaneModel airplaneModel)
         {
             this.model = airplaneModel;
@@ -21,23 +21,23 @@ namespace FlightSimulatorApp
             };
         }
 
-        public void connect()
+        public void Connect()
         {
-            model.connect();
-            model.start();
+            model.Connect();
+            model.Start();
         }
 
-        public void reconnect()
+        public void Reconnect()
         {
-            model.reconnect();
+            model.Reconnect();
         }
 
-        public void disconnect()
+        public void Disconnect()
         {
-            model.disconnect();
+            model.Disconnect();
         }
 
-        // Properties
+        // Properties.
         public string VM_Ip
         {
             get { return model.Ip; }

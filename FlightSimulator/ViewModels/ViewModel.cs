@@ -16,7 +16,7 @@ namespace FlightSimulatorApp
         public SettingsViewModel SettingsViewModel { get; private set; }
 
 
-        // Constructor
+        // Constructor.
         public ViewModel(IAirplaneModel airplaneModel)
         {
             this.model = airplaneModel;
