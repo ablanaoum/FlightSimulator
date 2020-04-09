@@ -10,6 +10,7 @@ namespace FlightSimulator.Views
 {
     public partial class Map : UserControl
     {
+        //Interaction logic for Map.xaml.
         public Map()
         {
             InitializeComponent();

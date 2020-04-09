@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace FlightSimulator.Views
 {
-    /// <summary>
-    /// Interaction logic for Control.xaml.
-    /// </summary>
+    // Interaction logic for Control.xaml.
     public partial class Control : UserControl
     {
         public Control()

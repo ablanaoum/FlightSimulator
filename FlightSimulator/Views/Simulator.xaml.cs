@@ -18,31 +18,37 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulator.Views
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml.
-    /// </summary>
+    // Interaction logic for Simulator.xaml.
     public partial class Simulator : Window
     {  
         public Simulator()
         {
             InitializeComponent();
+            // Define the data context of the map to mapVM.
             myMap.DataContext = (Application.Current as App).mapVM;
+            // Define the data context of the dashboard to dashboardVM.
             dash.DataContext = (Application.Current as App).dashboardVM;
+            // Define the data context of the control to controlVM.
             myControl.DataContext = (Application.Current as App).controlsVM;
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
+            // Close button calling to disconnect function in settingVM.
             (Application.Current as App).settingsVM.Disconnect();
+            // Close this window.
             this.Close();
         }
 
         private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
         {
+            // Reconnect button calling to Reconnect function in settingVM.
             (Application.Current as App).settingsVM.Reconnect();
             // Return to main window for reconnection.
             MainWindow logIn = new MainWindow();
+            // Show the main window (for connection).
             logIn.Show();
+            // Close this window.
             this.Close();
         }
     }

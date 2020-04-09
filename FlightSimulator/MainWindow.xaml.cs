@@ -17,14 +17,13 @@ using System.Windows.Shapes;
 
 namespace FlightSimulator
 {
-    /// <summary>
-    /// Interaction logic for Conection.xaml.
-    /// </summary>
+    // Interaction logic for MainWindow.xaml.
     public partial class MainWindow : Window
     {  
         public MainWindow()
         {
             InitializeComponent();
+            // Define the data contex as settingVM.
             DataContext = (Application.Current as App).settingsVM;
         }
 
@@ -32,14 +31,19 @@ namespace FlightSimulator
         {
             try
             {
+                // Try to connect model by click on button.
                 (Application.Current as App).settingsVM.Connect();
                 this.Hide();
+                // Create new window of the simulator.
                 Simulator si = new Simulator();
+                // Show the simulator window.
                 si.Show();
+                // Close this connection window.
                 this.Close();
             }
             catch (Exception ex)
             {
+                // Print an Error message that there is a problem with connection.
                 Console.WriteLine("{0}", ex.Message);
             }
         }

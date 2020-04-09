@@ -22,6 +22,7 @@ namespace FlightSimulator
 
         void App_Startup(object sender, StartupEventArgs e)
         {
+            // Initialize all view models and model in high level class-App.
             airplaneModel = new MyAirplaneModel();
             settingsVM = new SettingsViewModel(airplaneModel);
             dashboardVM = new DashboardViewModel(airplaneModel);

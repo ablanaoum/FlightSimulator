@@ -8,73 +8,91 @@ using System.Windows;
 
 namespace FlightSimulator.Views
 {
+    //Constructor.
     public partial class Joystick : UserControl
     {
+        // Dependency proprety of rudder and elevator.
         public static readonly DependencyProperty RudderProperty = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick));
         public static readonly DependencyProperty ElevatorProperty = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick));
         private Point mouseDownLoc = new Point();
-        private Point center;
-        private double radius;
         private double maxDist;
 
         public Joystick()
         {
             InitializeComponent();
-            center = new Point(Base.Width / 2 - KnobBase.Width / 2, Base.Height / 2 - KnobBase.Height / 2);
-            radius = Base.Width / 2;
+            // Max distance the center of knob can get without go out from joystick's base.
             maxDist = Base.Width / 2 - KnobBase.Width / 2;
         }
 
         private void Knob_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Knob.ReleaseMouseCapture();
+            // Return the x,y to the center (0,0).
             knobPosition.X = 0;
             knobPosition.Y = 0;
+            // Update the rudder and elevator according to the x,y.
             Rudder = knobPosition.X;
             Elevator = knobPosition.Y;
         }
 
         private void Knob_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
+            // If the mouse button is pressed.
             if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
+                // Temp x,y for the current mouse position.
                 double x = e.GetPosition(this).X - mouseDownLoc.X;
                 double y = e.GetPosition(this).Y - mouseDownLoc.Y;
+                // Distance of temp x,y from center.
                 double dist = Math.Sqrt(x * x + y * y);
                 double m;
-                
+                // If the current distance isn't bigger from the max distance (inside joystick).
                 if (dist <= maxDist)
-                {                 
+                {
+                    // Update the knob position according to the mouse posion.
                     knobPosition.X = x;
                     knobPosition.Y = y;
+                    // Update rudder and Elevator and do normalization.
                     SetNormalRudder();
                     SetNormalElevator();
                 }
+                // If current distance is bigger from the max distace (out of joystick).
                 else
                 {
+                    // Edge case- Joystick is vertical.
                     if (x == 0)
                     {
+                        // Update x position to 0.
                         knobPosition.X = 0;
+                        // If y is positive - update y position to max distance.
                         if (y > 0)
                         {
                             knobPosition.Y = maxDist;
                         }
+                        // If y is nagative - update y position to minus max distance.
                         else
                         {
                             knobPosition.Y = -1 * maxDist;
                         }
+                        // Update rudder to 0 and update and normalize elevator.
                         Rudder = 0;
                         SetNormalElevator();
                     }
+                    // Any other case (dintance bigger then max dist and x isn't 0).
                     else
                     {
+                        // Calculate slop between (x,y) to center (0,0).
                         m = y / x;
+                        // Calculate and update x position to max dist in the same slop.
                         knobPosition.X = maxDist / Math.Sqrt(m * m + 1);
+                        // Multiply the knob position we found by -1 if x is nagative.
                         if (x < 0)
                         {
                             knobPosition.X = -1 * knobPosition.X;
                         }
+                        // Calculate and update y position by the x knob position and slop.
                         knobPosition.Y = m * knobPosition.X;
+                        // Update and normalize rudder and elevator.
                         SetNormalRudder();
                         SetNormalElevator();
                     }
@@ -86,9 +104,12 @@ namespace FlightSimulator.Views
 
         private void Knob_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            // If mouse button is down.
             if (e.ChangedButton == System.Windows.Input.MouseButton.Left)
             {
+                // Save the mouse position.
                 mouseDownLoc = e.GetPosition(this);
+                // Only the capturing knob receives the mouse events until released.
                 Knob.CaptureMouse();
             }
         }
@@ -97,11 +118,13 @@ namespace FlightSimulator.Views
 
         private void SetNormalRudder()
         {
+            // Set and normalize rudder by the x knob position.
             Rudder = 2 * ((knobPosition.X + maxDist) / (maxDist * 2)) - 1;
         }
 
         private void SetNormalElevator()
         {
+            // Set and normalize elevator by the y knob position.
             Elevator = -1 * (2 * ((knobPosition.Y + maxDist) / (maxDist * 2)) - 1);
         }
 
