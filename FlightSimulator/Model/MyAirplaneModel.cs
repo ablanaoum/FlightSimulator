@@ -84,8 +84,17 @@ namespace FlightSimulatorApp
         public void Reconnect()
         {
             Disconnect();
+            // Reset variables
             Throttle = 0;
             Aileron = 0;
+            Heading = 0;
+            VerticalSpeed = 0;
+            GroundSpeed = 0;
+            Airspeed = 0;
+            Altitude = 0;
+            Roll = 0;
+            Pitch = 0;
+            Altimeter = 0;
             Ip = ConfigurationManager.AppSettings["ip"];
             Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
             this.simVars = this.CreateSimVarsArr();
@@ -190,7 +199,6 @@ namespace FlightSimulatorApp
                 client.Write(command);
                 // Measure the server response time.
                 stopWatch.Restart();
-                // Thread.Sleep(10000);  // Test waiting for response from the server for 10 seconds.
                 message = client.Read();
                 stopWatch.Reset();
                 return message;

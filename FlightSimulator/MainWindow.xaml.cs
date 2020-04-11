@@ -31,7 +31,7 @@ namespace FlightSimulator
         {
             try
             {
-                // Try to connect model by click on button.
+                // Try to connect to server by click on button.
                 (Application.Current as App).settingsVM.Connect();
                 this.Hide();
                 // Create new window of the simulator.
@@ -43,7 +43,7 @@ namespace FlightSimulator
             }
             catch (Exception ex)
             {
-                // Print an Error message that there is a problem with connection.
+                // Print an Error message if there is a problem with connection.
                 Console.WriteLine("{0}", ex.Message);
             }
         }

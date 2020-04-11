@@ -34,7 +34,7 @@ namespace FlightSimulator.Views
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Close button calling to disconnect function in settingVM.
+            // Close button calls Disconnect function in settingVM.
             (Application.Current as App).settingsVM.Disconnect();
             // Close this window.
             this.Close();
@@ -42,11 +42,11 @@ namespace FlightSimulator.Views
 
         private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Reconnect button calling to Reconnect function in settingVM.
+            // Reconnect button calls Reconnect function in settingVM.
             (Application.Current as App).settingsVM.Reconnect();
             // Return to main window for reconnection.
             MainWindow logIn = new MainWindow();
-            // Show the main window (for connection).
+            // Show the main window.
             logIn.Show();
             // Close this window.
             this.Close();
