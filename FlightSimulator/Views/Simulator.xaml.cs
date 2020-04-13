@@ -18,9 +18,10 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulator.Views
 {
-    // Interaction logic for Simulator.xaml.
+    // Simulator Class - Interaction logic for Simulator.xaml.
     public partial class Simulator : Window
     {  
+        // Constructor.
         public Simulator()
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace FlightSimulator.Views
             myControl.DataContext = (Application.Current as App).controlsVM;
         }
 
+        // Logic behind the Close button.
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
             // Close button calls Disconnect function in settingVM.
@@ -40,6 +42,7 @@ namespace FlightSimulator.Views
             this.Close();
         }
 
+        // Logic behind the Reconnect button.
         private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
         {
             // Reconnect button calls Reconnect function in settingVM.

@@ -15,9 +15,10 @@ using System.Windows.Shapes;
 
 namespace FlightSimulator.Views
 {
-    // Interaction logic for Dashboard.xaml.
+    // Dashboard Class - Interaction logic for Dashboard.xaml.
     public partial class Dashboard : UserControl
     {
+        // Constructor.
         public Dashboard()
         {
             InitializeComponent(); 

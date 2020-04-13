@@ -5,6 +5,7 @@ using System.Text;
 
 namespace FlightSimulatorApp
 {
+    // MyTelnetClient Class.
     public class MyTelnetClient : ITelnetClient
     {
         private TcpClient client;
@@ -13,6 +14,7 @@ namespace FlightSimulatorApp
         // Constructor.
         public MyTelnetClient() { }
 
+        // Connect to server.
         public void Connect(string ip, int port)
         {
                 // Create a TcpClient.
@@ -21,6 +23,7 @@ namespace FlightSimulatorApp
                 this.stream = client.GetStream();
         }
 
+        // Write message to server.
         public void Write(string command)
         {
             // Translate the passed command into ASCII and store it as a Byte array.
@@ -31,7 +34,7 @@ namespace FlightSimulatorApp
             Console.WriteLine("Sent: {0}", command);
         }
 
-        // Receive the TcpServer response.
+        // Receive server response.
         public string Read()
         {
             // Buffer to store the response bytes.
@@ -46,6 +49,7 @@ namespace FlightSimulatorApp
             return responseData;
         }
 
+        // Disconnect from server.
         public void Disconnect()
         {
             // Close everything.

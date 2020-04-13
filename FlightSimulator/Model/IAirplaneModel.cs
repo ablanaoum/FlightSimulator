@@ -8,6 +8,7 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp
 {
+    // AirplaneModel Interface.
     public interface IAirplaneModel : INotifyPropertyChanged
     {
         // Connection to the airplane.

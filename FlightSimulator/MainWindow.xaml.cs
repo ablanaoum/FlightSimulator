@@ -17,16 +17,18 @@ using System.Windows.Shapes;
 
 namespace FlightSimulator
 {
-    // Interaction logic for MainWindow.xaml.
+    // MainWindow Class - Interaction logic for MainWindow.xaml.
     public partial class MainWindow : Window
     {  
+        // Constructor.
         public MainWindow()
         {
             InitializeComponent();
-            // Define the data contex as settingVM.
+            // Define the data context as settingVM.
             DataContext = (Application.Current as App).settingsVM;
         }
 
+        // Logic behind the Connect button.
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try

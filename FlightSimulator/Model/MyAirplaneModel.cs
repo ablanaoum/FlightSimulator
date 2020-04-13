@@ -13,6 +13,7 @@ using FlightSimulator;
 
 namespace FlightSimulatorApp
 {
+    // MyAirplaneModel Class.
     public class MyAirplaneModel : IAirplaneModel
     {
         private ITelnetClient client;
@@ -57,15 +58,12 @@ namespace FlightSimulatorApp
                 new Tuple<string, double> ("/instrumentation/gps/indicated-altitude-ft", 0),
                 new Tuple<string, double> ("/instrumentation/attitude-indicator/internal-roll-deg", 0),
                 new Tuple<string, double> ("/instrumentation/attitude-indicator/internal-pitch-deg", 0),
-                new Tuple<string, double> ("/instrumentation/altimeter/indicated-altitude-ft", 0),
-                new Tuple<string, double> ("/position/longitude-deg", 0),
-                new Tuple<string, double> ("/position/latitude-deg", 0)
+                new Tuple<string, double> ("/instrumentation/altimeter/indicated-altitude-ft", 0)
             };
-
             return simVarsArr;
         }
 
-        // Connection to the airplane.
+        // Connect to server.
         public void Connect()
         {
             ConnectionErrorMessage = string.Empty;
@@ -81,6 +79,7 @@ namespace FlightSimulatorApp
             }
         }
 
+        // Reconnect to server.
         public void Reconnect()
         {
             Disconnect();
@@ -102,6 +101,7 @@ namespace FlightSimulatorApp
             ErrorScreen = "Oops! Connection went wrong. Try to reconnect or close the simulator.";
         }
 
+        // Disconnect from server.
         public void Disconnect()
         {
             stop = true;
@@ -109,12 +109,14 @@ namespace FlightSimulatorApp
             client.Disconnect();
         }
 
+        // Enqueue a 'set' command to the commands queue according to the changed variable.
         public void AddSetCommand(string varName, double value)
         {
             string command = "set " + varName + " " + value + "\n";
             this.commands.Enqueue(command);
         }
 
+        // Run two threads to send and receive data from the server.
         public void Start()
         {
             this.stop = false;
@@ -123,12 +125,13 @@ namespace FlightSimulatorApp
             new Thread(delegate ()
             {
                 string varName, command, receivedMessageFromGet;
+                double tempLong, tempLat;
                 try
                 {
                     while (!stop)
                     {
                         // Get values from the simulator.
-                        for (int i = 0; i < 10; i++)
+                        for (int i = 0; i < 8; i++)
                         {
                             varName = simVars[i].Item1;
                             command = "get " + varName + "\n";
@@ -136,10 +139,12 @@ namespace FlightSimulatorApp
                             receivedMessageFromGet = WriteAndRead(command);
                             try
                             {
+                                // Convert the received string to double
                                 simVars[i] = new Tuple<string, double>(varName, Double.Parse(receivedMessageFromGet));
                             }
-                            catch (Exception)
+                            catch (FormatException)
                             {
+                                // If conversion failed - display an indicator for the user.
                                 Console.WriteLine("Exception: Invalid value received for \"{0}\"", varName);
                                 ErrorScreen = "Exception: Invalid value received for \"" + varName + "\"";
                             }
@@ -153,16 +158,39 @@ namespace FlightSimulatorApp
                         Roll = simVars[5].Item2;
                         Pitch = simVars[6].Item2;
                         Altimeter = simVars[7].Item2;
-                        Longitude = simVars[8].Item2;
-                        Latitude = simVars[9].Item2;
-                        Location = new Location(Latitude, Longitude);
+
+                        try
+                        {
+                            // Get values for longitude and latitude from the simulator.
+                            tempLong = Double.Parse(WriteAndRead("get /position/longitude-deg\n"));
+                            tempLat = Double.Parse(WriteAndRead("get /position/latitude-deg\n"));
+                            // If the values ​​are within the proper range - update Location.
+                            if ((tempLong >= -180) && (tempLong <= 180) && (tempLat >= -90) && (tempLat <= 90))
+                            {
+                                Longitude = tempLong;
+                                Latitude = tempLat;
+                                Location = new Location(Latitude, Longitude);
+                            }
+                            else
+                            {
+                                ErrorScreen = "Exception: Location outside the earth boundaries.";
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            // If conversion failed - display an indicator for the user.
+                            Console.WriteLine("Exception: Invalid value received for location on map.");
+                            ErrorScreen = "Exception: Invalid value received for location on map.";
+                        }
 
                         // Read the data in 4Hz.
                         Thread.Sleep(250);
                     }
                 }
+                // If read or write to server failed (connection problem).
                 catch (Exception)
                 {
+                    // Stop communication with the server and allow reconnection.
                     Reconnect();
                 }
             }).Start();
@@ -178,21 +206,26 @@ namespace FlightSimulatorApp
                         // While the commands queue is not empty.
                         if (commands.Count != 0)
                         {
+                            // Send 'set' command to the server and receive the returned value.
                             receivedMessageFromSet = WriteAndRead(commands.Dequeue());
                         }
 
                         Thread.Sleep(1);
                     }
                 }
+                // If read or write to server failed (connection problem).
                 catch (Exception)
                 {
+                    // Stop communication with the server and allow reconnection.
                     Reconnect();
                 }
             }).Start();
         }
 
+        // Write a command to the server and read its response.
         public string WriteAndRead(string command)
         {
+            // Prevent both threads from performing the method at the same time.
             lock (syncLock)
             {
                 string message;
@@ -205,7 +238,7 @@ namespace FlightSimulatorApp
             }
         }
 
-        // The function notifies the user when the server is busy and responds slowly.
+        // Notify the user when the server is busy and responds slowly.
         public void TimerTick(object sender, EventArgs e)
         {
             // If the server did not respond for at least 8-10 seconds.
@@ -363,15 +396,8 @@ namespace FlightSimulatorApp
             {
                 if (this.longitude != value)
                 {
-                    if ((value >= -180) && (value <= 180))
-                    {
-                        this.longitude = value;
-                        this.NotifyPropertyChanged("Longitude");
-                    }
-                    else
-                    {
-                        ErrorScreen = "Exception: Invalid value received for /position/longitude-deg";
-                    }
+                    this.longitude = value;
+                    this.NotifyPropertyChanged("Longitude");
                 }
             }
         }
@@ -384,15 +410,8 @@ namespace FlightSimulatorApp
             {
                 if (this.latitude != value)
                 {
-                    if ((value >= -90) && (value <= 90))
-                    {
-                        this.latitude = value;
-                        this.NotifyPropertyChanged("Latitude");
-                    }
-                    else
-                    {
-                        ErrorScreen = "Exception: Invalid value received for /position/latitude-deg";
-                    }
+                    this.latitude = value;
+                    this.NotifyPropertyChanged("Latitude");
                 }
             }
         }

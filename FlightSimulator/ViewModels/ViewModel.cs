@@ -7,6 +7,7 @@ using System.ComponentModel;
 
 namespace FlightSimulatorApp
 {
+    // ViewModel Class.
     public class ViewModel : VMNotifyPropertyChanged
     {
         private IAirplaneModel model;

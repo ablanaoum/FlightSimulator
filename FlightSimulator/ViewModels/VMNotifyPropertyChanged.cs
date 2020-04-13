@@ -7,9 +7,12 @@ using System.ComponentModel;
 
 namespace FlightSimulatorApp
 {
+    // VMNotifyPropertyChanged Abstract Class.
     public abstract class VMNotifyPropertyChanged : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        // Notify when property changes.
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)

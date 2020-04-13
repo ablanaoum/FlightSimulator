@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace FlightSimulator.Views
 {
-    // Constructor.
+    // Joystick Class - Interaction logic for Joystick.xaml.
     public partial class Joystick : UserControl
     {
         // Dependency propreties of rudder and elevator.
@@ -25,6 +25,7 @@ namespace FlightSimulator.Views
             maxDist = Base.Width / 2 - KnobBase.Width / 2;
         }
 
+        // Logic behind releasing the mouse.
         private void Knob_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Knob.ReleaseMouseCapture();
@@ -36,6 +37,7 @@ namespace FlightSimulator.Views
             Elevator = knobPosition.Y;
         }
 
+        // Logic behind moving the mouse.
         private void Knob_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             // If the mouse button is pressed.
@@ -96,13 +98,12 @@ namespace FlightSimulator.Views
                         // Normalize and update rudder and elevator.
                         SetNormalRudder();
                         SetNormalElevator();
-                    }
-                    
-                }
-             
+                    }                  
+                }            
             }
         }
 
+        // Logic behind clicking the mouse.
         private void Knob_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             // If mouse button is down.
@@ -117,41 +118,29 @@ namespace FlightSimulator.Views
 
         private void centerKnob_Completed(object sender, EventArgs e) { }
 
+        // Normalize and set rudder by the x knob position.
         private void SetNormalRudder()
         {
-            // Normalize and set rudder by the x knob position.
             Rudder = 2 * ((knobPosition.X + maxDist) / (maxDist * 2)) - 1;
         }
 
+        // Normalize and set elevator by the y knob position.
         private void SetNormalElevator()
         {
-            // Normalize and set elevator by the y knob position.
             Elevator = -1 * (2 * ((knobPosition.Y + maxDist) / (maxDist * 2)) - 1);
         }
 
         // Dependency Properties.
         public double Rudder
         {
-            get
-            {
-                return (double)GetValue(RudderProperty);
-            }
-            set
-            {
-                SetValue(RudderProperty, value);
-            }
+            get { return (double)GetValue(RudderProperty); }
+            set { SetValue(RudderProperty, value); }
         }
 
         public double Elevator
         {
-            get
-            {
-                return (double)GetValue(ElevatorProperty);
-            }
-            set
-            {
-                SetValue(ElevatorProperty, value);
-            }
+            get { return (double)GetValue(ElevatorProperty); }
+            set { SetValue(ElevatorProperty, value); }
         }
     }
 }

@@ -8,9 +8,10 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulator.Views
 {
+    // Map Class - Interaction logic for Map.xaml.
     public partial class Map : UserControl
     {
-        // Interaction logic for Map.xaml.
+        // Constructor.
         public Map()
         {
             InitializeComponent();

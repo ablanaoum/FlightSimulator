@@ -7,6 +7,7 @@ using System.ComponentModel;
 
 namespace FlightSimulatorApp
 {
+    // SettingsViewModel Class.
     public class SettingsViewModel : VMNotifyPropertyChanged
     {
         private IAirplaneModel model;
@@ -21,17 +22,20 @@ namespace FlightSimulatorApp
             };
         }
 
+        // Connect to server and start to send and receive data from the server.
         public void Connect()
         {
             model.Connect();
             model.Start();
         }
 
+        // Reconnect to server.
         public void Reconnect()
         {
             model.Reconnect();
         }
 
+        // Disconnect from server.
         public void Disconnect()
         {
             model.Disconnect();

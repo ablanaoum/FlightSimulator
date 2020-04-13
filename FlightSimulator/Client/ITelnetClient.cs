@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorApp
 {
+    // TelnetClient interface.
     public interface ITelnetClient
     {
         void Connect(string ip, int port);
