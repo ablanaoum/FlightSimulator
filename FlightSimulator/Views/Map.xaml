@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <m:Map CredentialsProvider="AvrJuNqAr9cnxhxXGqJtotHK5It1yk1MeBP3XDjdTBndZlv6M543aQeKAoxEzja9" 
-               x:Name="myMap" Mode="AerialWithLabels" Center="32.006833306,34.885329792" ZoomLevel="15">
+               x:Name="myMap" Mode="AerialWithLabels" Center="32.006833306,34.885329792" ZoomLevel="7">
             <m:Pushpin x:Name="pin" Location="{Binding VM_Location}" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
                 <m:Pushpin.RenderTransform>
                     <TransformGroup>
