@@ -27,6 +27,7 @@ namespace FlightSimulatorApp
         double Roll { set; get; }
         double Pitch { set; get; }
         double Altimeter { set; get; }
+        string ErrorScreen { set; get; }
 
         // Map properties.
         double Longitude { set; get; }
@@ -41,8 +42,7 @@ namespace FlightSimulatorApp
 
         // Settings properties.
         string Ip { set; get; }
-        int Port { set; get; }
+        string Port { set; get; }
         string ConnectionErrorMessage { set; get; }
-        string ErrorScreen { set; get; }
     }
 }

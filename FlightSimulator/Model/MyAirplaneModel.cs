@@ -43,7 +43,7 @@ namespace FlightSimulatorApp
             this.timer.Tick += TimerTick;
             // Default IP and port.
             Ip = ConfigurationManager.AppSettings["ip"];
-            Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
+            Port = ConfigurationManager.AppSettings["port"];
         }
 
         // Create array of tuples of <simulator's variable name, value>.
@@ -69,7 +69,7 @@ namespace FlightSimulatorApp
             ConnectionErrorMessage = string.Empty;
             try
             {
-                client.Connect(this.ip, this.port);
+                client.Connect(this.ip, Int32.Parse(this.port));
                 ErrorScreen = "Welcome to Flight Simulator!";
             }
             catch (Exception)
@@ -95,7 +95,7 @@ namespace FlightSimulatorApp
             Pitch = 0;
             Altimeter = 0;
             Ip = ConfigurationManager.AppSettings["ip"];
-            Port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
+            Port = ConfigurationManager.AppSettings["port"];
             this.simVars = this.CreateSimVarsArr();
             this.commands.Clear();
             ErrorScreen = "Oops! Connection went wrong. Try to reconnect or close the simulator.";
@@ -502,8 +502,8 @@ namespace FlightSimulatorApp
             }
         }
 
-        private int port;
-        public int Port
+        private string port;
+        public string Port
         {
             get { return this.port; }
             set

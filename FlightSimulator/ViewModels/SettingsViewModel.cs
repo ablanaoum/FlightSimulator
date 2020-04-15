@@ -48,7 +48,7 @@ namespace FlightSimulatorApp
             set { model.Ip = value; }
         }
 
-        public int VM_Port
+        public string VM_Port
         {
             get { return model.Port; }
             set { model.Port = value; }
