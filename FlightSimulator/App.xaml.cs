@@ -14,7 +14,7 @@ namespace FlightSimulator
     /// </summary>
     public partial class App : Application
     {
-        IAirplaneModel airplaneModel;
+        private IAirplaneModel airplaneModel;
         public SettingsViewModel settingsVM;
         public DashboardViewModel dashboardVM;
         public MapViewModel mapVM;
