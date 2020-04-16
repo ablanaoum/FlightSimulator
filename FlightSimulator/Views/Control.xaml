@@ -6,17 +6,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightSimulator.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="333.3" Background="LightSlateGray">
+             d:DesignHeight="240" d:DesignWidth="390" Background="LightSlateGray">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="203*"/>
             <ColumnDefinition Width="131*"/>
         </Grid.ColumnDefinitions>
-        <Viewbox Width="180" Height="180" Margin="70,25,70,35" Grid.ColumnSpan="2">
+        <Viewbox Width="180" Height="190" Margin="70,0,70,35" Grid.ColumnSpan="2">
             <c:Joystick x:Name="joystick" Rudder="{Binding VM_Rudder, Mode=OneWayToSource}" Elevator="{Binding VM_Elevator, Mode=OneWayToSource}"/>
         </Viewbox>
-        <Slider HorizontalAlignment="Left" x:Name="aileron" Minimum="-1" Maximum="1" Margin="69,221,0,0" VerticalAlignment="Top" Height="19" Width="200" Grid.ColumnSpan="2" Value="{Binding VM_Aileron}"/>
-        <Label Content="Aileron" HorizontalAlignment="Left" Margin="8,212,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe Print" FontWeight="Bold" RenderTransformOrigin="-0.429,0.476"/>
+        <Slider HorizontalAlignment="Left" x:Name="aileron" Minimum="-1" Maximum="1" Margin="97,199,0,0" VerticalAlignment="Top" Height="19" Width="200" Grid.ColumnSpan="2" Value="{Binding VM_Aileron}"/>
+        <Label Content="Aileron" HorizontalAlignment="Left" Margin="36,189,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Segoe Print" FontWeight="Bold" RenderTransformOrigin="-0.429,0.476"/>
         <Slider HorizontalAlignment="Left" x:Name="throttle" Minimum="0" Maximum="1" Margin="-8,86,0,0" VerticalAlignment="Top" Height="21" Width="101" RenderTransformOrigin="0.5,0.5" Value="{Binding VM_Throttle}">
             <Slider.RenderTransform>
                 <TransformGroup>
@@ -28,11 +28,11 @@
             </Slider.RenderTransform>
         </Slider>
         <Label Content="Throttle" HorizontalAlignment="Left" Margin="9,146,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" FontFamily="Segoe Print"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="rudder" Height="20" Margin="76.333,3,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Rudder}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" x:Name="elevator" Height="20" Margin="76.333,30,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Elevator}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White"/>
-        <Label Content="Elevator" HorizontalAlignment="Left" Margin="23.333,24,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="10" FontFamily="Segoe Print" Foreground="White"/>
-        <Label Content="Rudder" HorizontalAlignment="Left" Margin="23.333,-3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.678,0.667" Grid.Column="1" FontSize="10" FontFamily="Segoe Print" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="rudder" Height="20" Margin="92.667,3,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Rudder}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" x:Name="elevator" Height="20" Margin="92.667,30,0,0" TextWrapping="Wrap" Text="{Binding ElementName=joystick,Mode=OneWay,Path=Elevator}" VerticalAlignment="Top" Width="49" Grid.Column="1" TextAlignment="Center" Foreground="White"/>
+        <Label Content="Elevator" HorizontalAlignment="Left" Margin="39.667,24,0,0" VerticalAlignment="Top" Grid.Column="1" FontSize="10" FontFamily="Segoe Print" Foreground="White"/>
+        <Label Content="Rudder" HorizontalAlignment="Left" Margin="41.667,-3,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.678,0.667" Grid.Column="1" FontSize="10" FontFamily="Segoe Print" Foreground="White"/>
         <TextBlock HorizontalAlignment="Left" Margin="14,28,0,0" TextWrapping="Wrap" Text="{Binding ElementName=throttle, Mode=OneWay, Path=Value}" VerticalAlignment="Top" Height="20" Width="54" TextAlignment="Center" Foreground="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="71.333,221,0,0" TextWrapping="Wrap" Text="{Binding ElementName=aileron, Mode=OneWay, Path=Value}" VerticalAlignment="Top" Height="20" Width="54" TextAlignment="Center" Foreground="White" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61.667,200,0,0" TextWrapping="Wrap" Text="{Binding ElementName=aileron, Mode=OneWay, Path=Value}" VerticalAlignment="Top" Height="20" Width="54" TextAlignment="Center" Foreground="White" Grid.Column="1"/>
     </Grid>
 </UserControl>

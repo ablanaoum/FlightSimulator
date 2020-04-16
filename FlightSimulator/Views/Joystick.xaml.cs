@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Media.Animation;
 
 namespace FlightSimulator.Views
 {
@@ -16,6 +17,7 @@ namespace FlightSimulator.Views
         public static readonly DependencyProperty ElevatorProperty = DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick));
         private Point mouseDownLoc = new Point();
         private double maxDist;
+        private Storyboard myStory;
 
         // Constructor.
         public Joystick()
@@ -23,18 +25,22 @@ namespace FlightSimulator.Views
             InitializeComponent();
             // Max distance the center of knob can get without go out from joystick's base.
             maxDist = Base.Width / 2 - KnobBase.Width / 2;
+            myStory = Knob.FindResource("CenterKnob") as Storyboard;
+            myStory.Begin();
+            myStory.Stop();
         }
 
         // Logic behind releasing the mouse.
         private void Knob_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            myStory.Begin();
             Knob.ReleaseMouseCapture();
             // Return x,y to the center (0,0).
-            knobPosition.X = 0;
-            knobPosition.Y = 0;
+            //knobPosition.X = 0;
+            //knobPosition.Y = 0;
             // Update the rudder and elevator according to x,y.
-            Rudder = knobPosition.X;
-            Elevator = knobPosition.Y;
+            //SetNormalRudder();
+            //SetNormalElevator();
         }
 
         // Logic behind moving the mouse.
@@ -116,7 +122,13 @@ namespace FlightSimulator.Views
             }
         }
 
-        private void centerKnob_Completed(object sender, EventArgs e) { }
+        private void centerKnob_Completed(object sender, EventArgs e) {
+            myStory.Stop();
+            knobPosition.X = 0;
+            knobPosition.Y = 0;
+            SetNormalRudder();
+            SetNormalElevator();
+        }
 
         // Normalize and set rudder by the x knob position.
         private void SetNormalRudder()

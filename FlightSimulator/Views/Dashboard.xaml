@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightSimulator.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="240" d:DesignWidth="333.3" Background="LightSkyBlue">
+             d:DesignHeight="210" d:DesignWidth="390" Background="LightSkyBlue">
     <Grid>
 
         <Label Content="Heading" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
@@ -24,6 +24,6 @@
         <TextBlock HorizontalAlignment="Left" Margin="241,36,0,0" TextWrapping="Wrap" Text="{Binding VM_Roll}" VerticalAlignment="Top" Height="20" Width="77"/>
         <TextBlock HorizontalAlignment="Left" Margin="241,65,0,0" TextWrapping="Wrap" Text="{Binding VM_Pitch}" VerticalAlignment="Top" Height="20" Width="77"/>
         <TextBlock HorizontalAlignment="Left" Margin="241,95,0,0" TextWrapping="Wrap" Text="{Binding VM_Altimeter}" VerticalAlignment="Top" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,121,0,-4.5" Width="231" TextWrapping="Wrap" Text="{Binding VM_ErrorScreen}" Background="#FF151564" Foreground="#FFFF0808" FontFamily="Segoe Print" FontWeight="Bold" FontSize="13" Padding="5,5,3,3"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,121,0,-4" Width="390" TextWrapping="Wrap" Text="{Binding VM_ErrorScreen}" Background="#FF151564" Foreground="#FFFF0808" FontFamily="Segoe Print" FontWeight="Bold" FontSize="13" Padding="5,5,3,3"/>
     </Grid>
 </UserControl>

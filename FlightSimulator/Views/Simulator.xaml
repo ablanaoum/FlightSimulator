@@ -7,21 +7,21 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         xmlns:local="clr-namespace:FlightSimulator"
         mc:Ignorable="d"
-        Title="Flight Simulator" Height="500" Width="1000" Background="LightSkyBlue">
+        Title="Flight Simulator" Height="500" Width="1000" Background="White">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="71*" />
-            <RowDefinition Height="86*" />
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <c:Control Grid.Column="1" Grid.Row="1" Height="Auto" x:Name="myControl" Margin="0,0.333,0.333,-1.333"/>
-        <c:Map Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" x:Name="myMap" Margin="0,0,0,-0.333"/>
-        <c:Dashboard Grid.Row="0" Grid.Column="1" Height="Auto" x:Name="dash" Margin="0,0,0.333,257.667" Grid.RowSpan="2"/>
-        <Button Content="Reconnect" Grid.Column="1" HorizontalAlignment="Left" Margin="236,134,0,0" VerticalAlignment="Top" Width="85" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Reconnect_Button_Click" Height="29"/>
-        <Button Content="Close" Grid.Column="1" HorizontalAlignment="Left" Margin="236,170,0,0" VerticalAlignment="Top" Width="85" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Close_Button_Click" Height="29"/>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <c:Map x:Name="myMap" Height="480" Width="600"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <Button Content="Reconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="195" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Reconnect_Button_Click" Height="29"/>
+                    <Button Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="195" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Close_Button_Click" Height="29"/>
+                </StackPanel>
+                <c:Dashboard x:Name="dash" Height="210" Width="390"/>
+                <c:Control x:Name="myControl" Height="240" Width="390"/>
+            </StackPanel>
+            
+        </StackPanel>
     </Grid>
 </Window>
