@@ -8,22 +8,22 @@
              d:DesignHeight="210" d:DesignWidth="390" Background="LightSkyBlue">
     <Grid>
 
-        <Label Content="Heading" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <Label Content="Vertical Speed" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <Label Content="Ground Speed" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <Label Content="Airspeed" HorizontalAlignment="Left" Margin="0,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <Label Content="Altitude" HorizontalAlignment="Left" Margin="179,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <Label Content="Roll" HorizontalAlignment="Left" Margin="179,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <Label Content="Pitch" HorizontalAlignment="Left" Margin="179,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <Label Content="Altimeter" HorizontalAlignment="Left" Margin="179,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,6,0,0" TextWrapping="Wrap" Text="{Binding VM_Heading}" VerticalAlignment="Top" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,36,0,0" TextWrapping="Wrap" Text="{Binding VM_VerticalSpeed}" VerticalAlignment="Top" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,65,0,0" TextWrapping="Wrap" Text="{Binding VM_GroundSpeed}" VerticalAlignment="Top" Width="77" Height="20"/>
-        <TextBlock HorizontalAlignment="Left" Margin="89,95,0,0" TextWrapping="Wrap" Text="{Binding VM_Airspeed}" VerticalAlignment="Top" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="241,6,0,0" TextWrapping="Wrap" Text="{Binding VM_Altitude}" VerticalAlignment="Top" RenderTransformOrigin="-0.431,0.135" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="241,36,0,0" TextWrapping="Wrap" Text="{Binding VM_Roll}" VerticalAlignment="Top" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="241,65,0,0" TextWrapping="Wrap" Text="{Binding VM_Pitch}" VerticalAlignment="Top" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="241,95,0,0" TextWrapping="Wrap" Text="{Binding VM_Altimeter}" VerticalAlignment="Top" Height="20" Width="77"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,121,0,-4" Width="390" TextWrapping="Wrap" Text="{Binding VM_ErrorScreen}" Background="#FF151564" Foreground="#FFFF0808" FontFamily="Segoe Print" FontWeight="Bold" FontSize="13" Padding="5,5,3,3"/>
+        <Label Content="Heading" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <Label Content="Vertical Speed" HorizontalAlignment="Left" Margin="5,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <Label Content="Ground Speed" HorizontalAlignment="Left" Margin="5,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <Label Content="Airspeed" HorizontalAlignment="Left" Margin="5,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="89" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <Label Content="Altitude" HorizontalAlignment="Left" Margin="220,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <Label Content="Roll" HorizontalAlignment="Left" Margin="220,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <Label Content="Pitch" HorizontalAlignment="Left" Margin="220,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <Label Content="Altimeter" HorizontalAlignment="Left" Margin="220,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.281,0.487" Width="62" FontFamily="Segoe Print" FontWeight="Bold" FontSize="10"/>
+        <TextBlock HorizontalAlignment="Left" Margin="94,6,0,0" TextWrapping="Wrap" Text="{Binding VM_Heading}" VerticalAlignment="Top" Height="20" Width="77"/>
+        <TextBlock HorizontalAlignment="Left" Margin="94,36,0,0" TextWrapping="Wrap" Text="{Binding VM_VerticalSpeed}" VerticalAlignment="Top" Height="20" Width="77"/>
+        <TextBlock HorizontalAlignment="Left" Margin="94,65,0,0" TextWrapping="Wrap" Text="{Binding VM_GroundSpeed}" VerticalAlignment="Top" Width="77" Height="20"/>
+        <TextBlock HorizontalAlignment="Left" Margin="94,95,0,0" TextWrapping="Wrap" Text="{Binding VM_Airspeed}" VerticalAlignment="Top" Height="20" Width="77"/>
+        <TextBlock HorizontalAlignment="Left" Margin="282,6,0,0" TextWrapping="Wrap" Text="{Binding VM_Altitude}" VerticalAlignment="Top" RenderTransformOrigin="-0.431,0.135" Height="20" Width="77"/>
+        <TextBlock HorizontalAlignment="Left" Margin="282,36,0,0" TextWrapping="Wrap" Text="{Binding VM_Roll}" VerticalAlignment="Top" Height="20" Width="77"/>
+        <TextBlock HorizontalAlignment="Left" Margin="282,65,0,0" TextWrapping="Wrap" Text="{Binding VM_Pitch}" VerticalAlignment="Top" Height="20" Width="77"/>
+        <TextBlock HorizontalAlignment="Left" Margin="282,95,0,0" TextWrapping="Wrap" Text="{Binding VM_Altimeter}" VerticalAlignment="Top" Height="20" Width="77"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,121,0,-4" Width="390" TextWrapping="Wrap" Text="{Binding VM_ErrorScreen}" Background="#FF151564" Foreground="#FFFF0808" FontFamily="Segoe Print" FontWeight="Bold" FontSize="15" Padding="7,5,3,3"/>
     </Grid>
 </UserControl>

@@ -14,14 +14,14 @@
                 <c:Map x:Name="myMap" Height="480" Width="600"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
+                <c:Dashboard x:Name="dash" Height="210" Width="390"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <Button Content="Reconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="195" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Reconnect_Button_Click" Height="29"/>
                     <Button Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="195" FontWeight="Bold" FontFamily="Segoe Print" FontSize="14" Click="Close_Button_Click" Height="29"/>
                 </StackPanel>
-                <c:Dashboard x:Name="dash" Height="210" Width="390"/>
                 <c:Control x:Name="myControl" Height="240" Width="390"/>
             </StackPanel>
-            
+
         </StackPanel>
     </Grid>
 </Window>
