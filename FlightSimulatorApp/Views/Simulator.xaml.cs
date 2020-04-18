@@ -45,14 +45,14 @@ namespace FlightSimulator.Views
         // Logic behind the Reconnect button.
         private void Reconnect_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Reconnect button calls Reconnect function in settingVM.
-            (Application.Current as App).settingsVM.Reconnect();
             // Return to main window for reconnection.
             MainWindow logIn = new MainWindow();
             // Show the main window.
             logIn.Show();
             // Close this window.
             this.Close();
+            // Reconnect button calls Reconnect function in settingVM.
+            (Application.Current as App).settingsVM.Reconnect();
         }
     }
 }

@@ -146,7 +146,7 @@ namespace FlightSimulatorApp
                             {
                                 // If conversion failed - display an indicator for the user.
                                 Console.WriteLine("Exception: Invalid value received for \"{0}\"", varName);
-                                ErrorScreen = "Exception: Invalid value received for \"" + varName + "\"";
+                                ErrorScreen = "Exception: Invalid value received for\n\"" + varName + "\"";
                             }
                         }
                         // Set the properties.

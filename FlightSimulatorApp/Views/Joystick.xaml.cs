@@ -35,12 +35,6 @@ namespace FlightSimulator.Views
         {
             myStory.Begin();
             Knob.ReleaseMouseCapture();
-            // Return x,y to the center (0,0).
-            //knobPosition.X = 0;
-            //knobPosition.Y = 0;
-            // Update the rudder and elevator according to x,y.
-            //SetNormalRudder();
-            //SetNormalElevator();
         }
 
         // Logic behind moving the mouse.
@@ -122,10 +116,13 @@ namespace FlightSimulator.Views
             }
         }
 
+        // Logic behind returning to center.
         private void centerKnob_Completed(object sender, EventArgs e) {
             myStory.Stop();
+            // Return x,y to the center (0,0).
             knobPosition.X = 0;
             knobPosition.Y = 0;
+            // Update the rudder and elevator according to x,y.
             SetNormalRudder();
             SetNormalElevator();
         }
